@@ -20,7 +20,7 @@ export default function RegisterAdmin() {
     };
 
     return (
-        <div className="container border-4 border-black p-6 w-full max-w-md">
+        <div className="container border-4 border-black p-6 w-full max-w-md shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all dark:border-white dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
             <h2 className="text-2xl font-bold text-center mb-6">
                 Daftar Akun Admin
             </h2>
@@ -36,7 +36,7 @@ export default function RegisterAdmin() {
                         value={data.name}
                         onChange={handleChange}
                         required
-                        className="w-full border-black border-2 p-2.5"
+                        className="w-full border-black border-2 p-2.5 focus:outline-none focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:bg-yellow-300 active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
                     />
                     {errors.name && (
                         <p className="text-red-500">{errors.name}</p>
@@ -54,7 +54,7 @@ export default function RegisterAdmin() {
                         value={data.email}
                         onChange={handleChange}
                         required
-                        className="w-full border-black border-2 p-2.5"
+                        className="w-full border-black border-2 p-2.5 focus:outline-none focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:bg-yellow-300 active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
                     />
                     {errors.email && (
                         <p className="text-red-500">{errors.email}</p>
@@ -72,7 +72,7 @@ export default function RegisterAdmin() {
                         value={data.password}
                         onChange={handleChange}
                         required
-                        className="w-full border-black border-2 p-2.5"
+                        className="w-full border-black border-2 p-2.5 focus:outline-none focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:bg-yellow-300 active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
                     />
                     {errors.password && (
                         <p className="text-red-500">{errors.password}</p>
@@ -93,13 +93,13 @@ export default function RegisterAdmin() {
                         value={data.password_confirmation}
                         onChange={handleChange}
                         required
-                        className="w-full border-black border-2 p-2.5"
+                        className="w-full border-black border-2 p-2.5 focus:outline-none focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:bg-yellow-300 active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="h-12 w-full text-black border-2 border-black bg-yellow-300"
+                    className="h-12 w-full text-black border-2 border-black bg-yellow-300 cursor-pointer"
                 >
                     Daftar
                 </button>
