@@ -1,4 +1,3 @@
-// lib
 import { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
 
@@ -126,11 +125,6 @@ const Navbar = ({ authUser }) => {
                                 {authUser.name}
                             </span>
                             <form action="/logout" method="POST">
-                                <input
-                                    type="hidden"
-                                    name="_token"
-                                    value={authUser.token}
-                                />
                                 <button type="submit">Logout</button>
                             </form>
                         </>
@@ -236,11 +230,6 @@ const Navbar = ({ authUser }) => {
                 </div>
                 {authUser ? (
                     <form action="/logout" method="POST" className="p-2">
-                        <input
-                            type="hidden"
-                            name="_token"
-                            value={authUser.token}
-                        />
                         <button
                             type="submit"
                             className="text-black dark:text-white"
