@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
             'auth.user' => function () {
                 return Auth::user();
             },
+            'auth.csrf_token' => function () {
+                return csrf_token();
+            },
         ]);
     }
 }
