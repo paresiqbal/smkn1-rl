@@ -81,7 +81,11 @@ const Navbar = ({ authUser }) => {
                 </div>
                 <div className="flex items-center space-x-6">
                     {/* Theme Toggle Button */}
-                    <button id="theme-toggle" onClick={toggleTheme}>
+                    <button
+                        id="theme-toggle"
+                        onClick={toggleTheme}
+                        className="cursor-pointer"
+                    >
                         {darkTheme ? (
                             <svg
                                 id="sun-icon"
