@@ -1,6 +1,7 @@
 import React from "react";
+import AdminLayout from "../../Layouts/AdminLayout";
 
-export default function AdminDashboard() {
+function AdminDashboard() {
     return (
         <div>
             <h1> Wellcome To Admin Dashboard</h1>
@@ -8,3 +9,7 @@ export default function AdminDashboard() {
         </div>
     );
 }
+
+AdminDashboard.layout = (page) => <AdminLayout children={page} />;
+
+export default AdminDashboard;
