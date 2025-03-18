@@ -7,6 +7,8 @@ import { createRoot } from "react-dom/client";
 import MainLayout from "@/layouts/MainLayout";
 import { setThemeOnLoad } from "./theme";
 
+import "notyf/notyf.min.css";
+
 createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob("./Pages/**/*.jsx", { eager: true });
