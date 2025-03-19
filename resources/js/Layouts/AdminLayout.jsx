@@ -1,11 +1,11 @@
 import React from "react";
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../components/Sidebar";
 
 export default function AdminLayout({ children }) {
     return (
-        <div className="flex">
+        <div className="flex min-h-screen">
             <Sidebar />
-            <main className="flex-1 p-4">{children}</main>
+            <main className="flex-1 p-4 md:ml-64">{children}</main>
         </div>
     );
 }
