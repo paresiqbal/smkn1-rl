@@ -12,8 +12,10 @@ Route::get('/', function () {
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
     Route::get('/auth/register-admin', 'showRegisterAdmin')->name('show.register.admin');
     Route::post('/register-admin', 'registerAdmin')->name('register.admin');
+
     Route::get('/auth/register', 'showRegister')->name('show.register');
     Route::post('/register', 'registerUser')->name('register');
+
     Route::get('/auth/login', 'showLogin')->name('show.login');
     Route::get('/login', function () {
         return redirect()->route('show.login');
