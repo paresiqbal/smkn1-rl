@@ -1,6 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, usePage, useForm } from "@inertiajs/react";
-import { ChevronDown, Menu, X, Sun, Moon, LogOut, User } from "lucide-react";
+import {
+    ChevronDown,
+    Menu,
+    X,
+    Sun,
+    Moon,
+    LogOut,
+    User,
+    Newspaper,
+} from "lucide-react";
 
 const Sidebar = () => {
     const { auth } = usePage().props;
@@ -71,7 +80,7 @@ const Sidebar = () => {
     const navItems = [
         {
             label: "Artikel",
-            icon: "📰",
+            icon: <Newspaper size="16" />,
             subItems: [
                 { label: "Berita", path: "/profil/visi-misi" },
                 { label: "Pengumuman", path: "/profil/visi-misi" },
@@ -80,7 +89,7 @@ const Sidebar = () => {
         },
         {
             label: "Profil",
-            icon: "👤",
+            icon: <User size="16" />,
             subItems: [
                 { label: "Visi & Misi", path: "/profil/visi-misi" },
                 { label: "Sejarah", path: "/profil/visi-misi" },
@@ -118,7 +127,7 @@ const Sidebar = () => {
             {/* Sidebar */}
             <aside
                 ref={sidebarRef}
-                className={`fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-auto bg-white shadow-lg transition-transform duration-300 ease-in-out md:translate-x-0 dark:bg-gray-800 ${
+                className={`fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-auto bg-orange-50 shadow-lg transition-transform duration-300 ease-in-out md:translate-x-0 dark:bg-zinc-800 ${
                     sidebarOpen ? "translate-x-0" : "-translate-x-full"
                 }`}
             >
@@ -152,7 +161,7 @@ const Sidebar = () => {
                             <div key={item.label} className="py-1">
                                 <button
                                     onClick={() => toggleMenu(item.label)}
-                                    className="group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-medium text-gray-700 transition-colors hover:bg-orange-100 hover:text-orange-700 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-orange-400"
+                                    className="group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm font-medium text-gray-700 transition-colors hover:bg-orange-100 dark:text-gray-200 dark:hover:bg-gray-700"
                                     aria-expanded={expandedMenus[item.label]}
                                 >
                                     <div className="flex items-center">
@@ -183,7 +192,7 @@ const Sidebar = () => {
                                             <Link
                                                 key={subItem.label}
                                                 href={subItem.path}
-                                                className="block rounded-md px-3 py-2 text-sm text-gray-600 transition-colors hover:bg-orange-50 hover:text-orange-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-orange-400"
+                                                className="block rounded-md px-3 py-2 text-sm text-gray-600 transition-colors hover:bg-orange-50 dark:text-gray-300 dark:hover:bg-gray-700"
                                                 onClick={() =>
                                                     setSidebarOpen(false)
                                                 }
@@ -201,7 +210,7 @@ const Sidebar = () => {
                     <div className="border-t p-4 dark:border-gray-700">
                         <button
                             onClick={toggleTheme}
-                            className="mb-4 flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-orange-100 hover:text-orange-700 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-orange-400"
+                            className="mb-4 flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-orange-100 dark:text-gray-200 dark:hover:bg-gray-700"
                         >
                             <span className="flex items-center">
                                 {darkTheme ? (
@@ -219,14 +228,14 @@ const Sidebar = () => {
                         </button>
 
                         {authUser && (
-                            <div className="space-y-2 rounded-md bg-gray-50 p-3 dark:bg-gray-700/50">
+                            <div className="space-y-2 rounded-md bg-orange-50 p-3 dark:bg-zinc-800">
                                 <div className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                                     <User className="h-4 w-4" />
                                     <span>{authUser.name}</span>
                                 </div>
                                 <button
                                     onClick={handleLogout}
-                                    className="flex w-full items-center space-x-2 rounded-md px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+                                    className="flex w-full cursor-pointer items-center space-x-2 rounded-md py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
                                 >
                                     <LogOut className="h-4 w-4" />
                                     <span>Logout</span>
