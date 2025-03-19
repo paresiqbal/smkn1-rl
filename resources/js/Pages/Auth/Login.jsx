@@ -1,11 +1,15 @@
 import React from "react";
 import { useForm } from "@inertiajs/react";
 
+// context
+import NotyfContext from "@/context/NotyfContext";
+
 export default function Login() {
     const { data, setData, post, errors } = useForm({
         email: "",
         password: "",
     });
+    const notyf = useContext(NotyfContext);
 
     const handleChange = (e) => {
         setData(e.target.name, e.target.value);
@@ -14,35 +18,42 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        post("/login");
+        post("/login", {
+            onSuccess: () => {
+                notyf.success("Berhasil Login!");
+            },
+            onError: () => {
+                notyf.error("Login gagal, coba lagi!.");
+            },
+        });
     };
     return (
-        <div className="container border-4 border-black p-6 w-full max-w-md shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all dark:border-white dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-            <h2 className="text-2xl font-bold text-center mb-6">Login Akun</h2>
+        <div className="dark:shadow-light shadow-dark container w-full max-w-md border-4 border-black bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] p-6 transition-all dark:border-white">
+            <h2 className="mb-6 text-center text-2xl font-bold">Login Akun</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group mb-4">
-                    <label htmlFor="email" className="block mb-2">
+                    <label htmlFor="email" className="mb-2 block">
                         Email
                     </label>
                     <input
                         type="email"
                         id="email"
                         name="email"
-                        className="w-full border-black border-2 p-2.5 focus:outline-none focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:bg-yellow-300 active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                         value={data.email}
                         onChange={handleChange}
                         required
                     />
                 </div>
                 <div className="form-group mb-4">
-                    <label htmlFor="password" className="block mb-2">
+                    <label htmlFor="password" className="mb-2 block">
                         Password
                     </label>
                     <input
                         type="password"
                         id="password"
                         name="password"
-                        className="w-full border-black border-2 p-2.5 focus:outline-none focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:bg-yellow-300 active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                         value={data.password}
                         onChange={handleChange}
                         required
@@ -50,7 +61,7 @@ export default function Login() {
                 </div>
                 <button
                     type="submit"
-                    className="h-12 w-full text-black border-2 border-black p-2.5 bg-yellow-300 shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition"
+                    class="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
                 >
                     Masuk
                 </button>

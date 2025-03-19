@@ -22,10 +22,10 @@ export default function RegisterAdmin() {
 
         post("/register-admin", {
             onSuccess: () => {
-                notyf.success("Admin registered successfully!");
+                notyf.success("Admin Berhasil didaftarkan!");
             },
             onError: () => {
-                notyf.error("Registration failed. Please check the errors.");
+                notyf.error("Gagal pendaftaran, coba lagi!.");
             },
         });
     };
