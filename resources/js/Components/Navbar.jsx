@@ -164,7 +164,7 @@ const Navbar = () => {
                                 </span>
                                 <button
                                     onClick={handleLogout}
-                                    className="rounded-md px-3 py-2 transition-colors hover:bg-orange-100 dark:text-gray-200 dark:hover:bg-gray-800"
+                                    className="block transform border-2 border-black bg-yellow-300 px-4 py-2 text-center font-semibold text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none dark:border-white dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.8)]"
                                 >
                                     Logout
                                 </button>
