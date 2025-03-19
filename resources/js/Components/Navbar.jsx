@@ -11,7 +11,7 @@ const Navbar = () => {
     const [showcaseMobileDropdownOpen, setShowcaseMobileDropdownOpen] =
         useState(false);
     const [darkTheme, setDarkTheme] = useState(
-        () => localStorage.getItem("theme") === "dark"
+        () => localStorage.getItem("theme") === "dark",
     );
 
     useEffect(() => {
@@ -32,56 +32,82 @@ const Navbar = () => {
         post("/logout");
     };
 
+    const navItems = [
+        { label: "Artikel", path: "/artikel" },
+        {
+            label: "Profil",
+            subItems: [
+                { label: "Visi & Misi", path: "/profil/visi-misi" },
+                // Add more as needed
+            ],
+        },
+    ];
+
     return (
-        <nav className="p-4 lg:px-0 lg:py-4 lg:mx-24">
-            <div className="container mx-auto flex justify-between items-center">
+        <nav className="p-4 lg:mx-24 lg:px-0 lg:py-4">
+            <div className="container mx-auto flex items-center justify-between">
                 <Link
                     href="/"
                     className="text-2xl font-bold text-black dark:text-white"
                 >
+                    <img
+                        src="/assets/blud.png"
+                        alt="Logo"
+                        className="mr-2 inline-block h-8 w-8"
+                    />
                     SMKN 1 RL
                 </Link>
 
-                <div className="hidden md:flex space-x-6">
-                    <a href="#">Artikel</a>
-                    <div className="relative group">
-                        <a
-                            href="#"
-                            className="inline-flex items-center"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setShowcaseDropdownOpen(!showcaseDropdownOpen);
-                            }}
-                        >
-                            Profil
-                            <svg
-                                className="ml-1 w-4 h-4"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6 9l6 6 6-6"
-                                />
-                            </svg>
-                        </a>
-                        {showcaseDropdownOpen && (
-                            <div className="absolute shadow-lg mt-1">
-                                <a
-                                    href="#"
-                                    className="block px-8 py-2 text-black dark:text-white"
+                {/* Desktop Menus */}
+                <div className="hidden space-x-6 md:flex">
+                    {navItems.map((item) => (
+                        <div key={item.label} className="group relative">
+                            {/* Link or dropdown toggle */}
+                            {item.subItems ? (
+                                <button
+                                    onClick={() =>
+                                        setShowcaseDropdownOpen((prev) => !prev)
+                                    }
+                                    className="inline-flex items-center"
                                 >
-                                    Visi & Misi
-                                </a>
-                            </div>
-                        )}
-                    </div>
+                                    {item.label}
+                                    <svg
+                                        className="ml-1 h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M6 9l6 6 6-6"
+                                        />
+                                    </svg>
+                                </button>
+                            ) : (
+                                <Link href={item.path}>{item.label}</Link>
+                            )}
+                            {/* Dropdown menu (if any) */}
+                            {item.subItems && showcaseDropdownOpen && (
+                                <div className="absolute mt-1 bg-white shadow-lg dark:bg-gray-800">
+                                    {item.subItems.map((subItem) => (
+                                        <Link
+                                            key={subItem.label}
+                                            href={subItem.path}
+                                            className="block px-4 py-2 text-black dark:text-white"
+                                        >
+                                            {subItem.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
                 </div>
 
+                {/* Theme Toggle + Auth Buttons */}
                 <div className="flex items-center space-x-6">
                     <button onClick={toggleTheme} className="cursor-pointer">
                         {darkTheme ? (
@@ -136,6 +162,7 @@ const Navbar = () => {
                     )}
                 </div>
 
+                {/* Mobile Menu Toggle */}
                 <button
                     id="menu-toggle"
                     className="md:hidden"
@@ -145,39 +172,50 @@ const Navbar = () => {
                 </button>
             </div>
 
+            {/* Mobile Menu */}
             {mobileMenuOpen && (
                 <div
                     id="mobile-menu"
-                    className="md:hidden transition duration-300"
+                    className="transition duration-300 md:hidden"
                 >
-                    <a
-                        href="#"
-                        className="block p-2 text-black dark:text-white"
-                    >
-                        Artikel
-                    </a>
-                    <div className="relative">
-                        <button
-                            onClick={() =>
-                                setShowcaseMobileDropdownOpen(
-                                    !showcaseMobileDropdownOpen
-                                )
-                            }
-                            className="block p-2 w-full text-left text-black dark:text-white"
-                        >
-                            Profil
-                        </button>
-                        {showcaseMobileDropdownOpen && (
-                            <div className="shadow-lg">
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 text-black dark:text-white"
+                    {navItems.map((item) => (
+                        <div key={item.label} className="relative">
+                            {item.subItems ? (
+                                <>
+                                    <button
+                                        onClick={() =>
+                                            setShowcaseMobileDropdownOpen(
+                                                !showcaseMobileDropdownOpen,
+                                            )
+                                        }
+                                        className="block w-full p-2 text-left text-black dark:text-white"
+                                    >
+                                        {item.label}
+                                    </button>
+                                    {showcaseMobileDropdownOpen && (
+                                        <div className="shadow-lg">
+                                            {item.subItems.map((subItem) => (
+                                                <Link
+                                                    key={subItem.label}
+                                                    href={subItem.path}
+                                                    className="block px-4 py-2 text-black dark:text-white"
+                                                >
+                                                    {subItem.label}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <Link
+                                    href={item.path}
+                                    className="block p-2 text-black dark:text-white"
                                 >
-                                    Visi & Misi
-                                </a>
-                            </div>
-                        )}
-                    </div>
+                                    {item.label}
+                                </Link>
+                            )}
+                        </div>
+                    ))}
                     {authUser ? (
                         <button
                             onClick={handleLogout}
