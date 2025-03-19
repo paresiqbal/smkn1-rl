@@ -47,7 +47,7 @@ export default function RegisterAdmin() {
                         value={data.name}
                         onChange={handleChange}
                         required
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:outline-none active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                     {errors.name && (
                         <p className="text-red-500">{errors.name}</p>
@@ -65,7 +65,7 @@ export default function RegisterAdmin() {
                         value={data.email}
                         onChange={handleChange}
                         required
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:outline-none active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                     {errors.email && (
                         <p className="text-red-500">{errors.email}</p>
@@ -83,7 +83,7 @@ export default function RegisterAdmin() {
                         value={data.password}
                         onChange={handleChange}
                         required
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:outline-none active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                     {errors.password && (
                         <p className="text-red-500">{errors.password}</p>
@@ -104,13 +104,13 @@ export default function RegisterAdmin() {
                         value={data.password_confirmation}
                         onChange={handleChange}
                         required
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:shadow-[2px_2px_0px_rgba(0,0,0,1)] focus:outline-none active:shadow-[2px_2px_0px_rgba(0,0,0,1)]"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="h-12 w-full cursor-pointer border-2 border-black bg-yellow-300 text-black"
+                    class="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
                 >
                     Daftar
                 </button>
