@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap");
 
 @plugin "tailwindcss-animate";
 
@@ -22,7 +23,8 @@
     --shadow-input-dark: 2px 2px 0px rgba(0, 0, 0, 1);
     --shadow-input-light: 2px 2px 0px rgba(255, 255, 255, 1);
 
-    --font-mono: "Geist Mono", monospace;
+    --font-space: "Space Mono", monospace;
+    --font-geist: "Geist Mono", monospace;
 }
 
 @theme inline {

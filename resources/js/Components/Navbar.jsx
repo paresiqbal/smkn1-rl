@@ -155,10 +155,15 @@ const Navbar = () => {
                             </button>
                         </>
                     ) : (
-                        <>
-                            <Link href="/auth/login">Login</Link>
+                        <div className="hidden space-x-8 md:block">
+                            <Link
+                                href="/auth/login"
+                                className="bg-yellow-300 px-4 py-2"
+                            >
+                                Login
+                            </Link>
                             <Link href="/auth/register">Register</Link>
-                        </>
+                        </div>
                     )}
                 </div>
 

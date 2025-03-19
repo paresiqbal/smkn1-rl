@@ -7,7 +7,7 @@ export default function MainLayout({ children }) {
     const { auth } = usePage().props;
 
     return (
-        <div className="flex w-full flex-col font-mono font-medium antialiased transition-all duration-200">
+        <div className="font-regular font-geist flex w-full flex-col antialiased transition-all duration-200">
             <Navbar />
             <main className="flex w-full flex-1 justify-center p-4 selection:bg-red-300 lg:px-24 dark:selection:bg-orange-400">
                 {children}
