@@ -207,7 +207,7 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="mt-2 rounded-md p-2 md:hidden">
+                <div className="mt-2 rounded-md border-b-2 border-black p-2 md:hidden">
                     <div className="flex flex-col space-y-2">
                         {navItems.map((item) => (
                             <div key={item.label} className="relative">
