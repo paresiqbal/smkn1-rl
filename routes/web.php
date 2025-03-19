@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -23,7 +24,8 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('/login', 'login')->name('login');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
