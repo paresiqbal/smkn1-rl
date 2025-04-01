@@ -16,8 +16,8 @@ export default function News() {
         if (e.target.type === "file") {
             value = e.target.files[0];
         }
-        setNews((values) => ({
-            ...values,
+        setNews((news) => ({
+            ...news,
             [key]: value,
         }));
     }
@@ -25,12 +25,12 @@ export default function News() {
     function handleSubmit(e) {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("title", values.title);
-        formData.append("content", values.content);
-        formData.append("published_at", values.published_at);
-        formData.append("tags", values.tags);
-        if (values.image) {
-            formData.append("image", values.image);
+        formData.append("title", news.title);
+        formData.append("content", news.content);
+        formData.append("published_at", news.published_at);
+        formData.append("tags", news.tags);
+        if (news.image) {
+            formData.append("image", news.image);
         }
         Inertia.post("/news", formData);
     }
@@ -44,7 +44,7 @@ export default function News() {
                     <input
                         type="text"
                         name="title"
-                        value={values.title}
+                        value={news.title}
                         onChange={handleChange}
                     />
                 </div>
@@ -52,7 +52,7 @@ export default function News() {
                     <label>Content</label>
                     <textarea
                         name="content"
-                        value={values.content}
+                        value={news.content}
                         onChange={handleChange}
                     />
                 </div>
@@ -61,7 +61,7 @@ export default function News() {
                     <input
                         type="date"
                         name="published_at"
-                        value={values.published_at}
+                        value={news.published_at}
                         onChange={handleChange}
                     />
                 </div>
@@ -70,7 +70,7 @@ export default function News() {
                     <input
                         type="text"
                         name="tags"
-                        value={values.tags}
+                        value={news.tags}
                         onChange={handleChange}
                     />
                 </div>
