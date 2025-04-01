@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NewsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\AdminMiddleware;
@@ -28,4 +29,8 @@ Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->n
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // news routes
+    Route::get('/admin/news', [NewsController::class, 'index'])->name('admin.news');
+    Route::post('/admin/news/store', [NewsController::class, 'store'])->name('admin.news.store');
 });
