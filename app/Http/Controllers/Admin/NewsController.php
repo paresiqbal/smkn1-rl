@@ -16,12 +16,18 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
+        // Ensure only admins can store news
+        if (!auth()->user() || auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
         $validatedData = $request->validate([
             'title'        => 'required|string|max:255',
             'content'      => 'required|string',
             'published_at' => 'nullable|date',
-            'tags'         => 'nullable',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:3048',
+            'tags'         => 'nullable|array',
+            'tags.*'       => 'string|max:50',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
         ]);
 
         if ($request->hasFile('image')) {
@@ -29,9 +35,11 @@ class NewsController extends Controller
             $validatedData['image'] = $path;
         }
 
-        // Automatically set the author_id if needed:
+        $validatedData['tags'] = $request->tags ? json_encode($request->tags) : json_encode([]);
+
         $validatedData['author_id'] = auth()->id();
 
+        // Create news record
         News::create($validatedData);
 
         return redirect()->back()->with('success', 'News uploaded successfully!');

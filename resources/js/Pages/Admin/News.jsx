@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { router } from "@inertiajs/react";
 import AdminLayout from "../../Layouts/AdminLayout";
 
 export default function News() {
@@ -13,9 +14,11 @@ export default function News() {
     function handleChange(e) {
         const key = e.target.name;
         let value = e.target.value;
+
         if (e.target.type === "file") {
             value = e.target.files[0];
         }
+
         setNews((news) => ({
             ...news,
             [key]: value,
@@ -24,15 +27,29 @@ export default function News() {
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        if (!news.title || !news.content) {
+            alert("Title and Content are required!");
+            return;
+        }
+
         const formData = new FormData();
         formData.append("title", news.title);
         formData.append("content", news.content);
-        formData.append("published_at", news.published_at);
-        formData.append("tags", news.tags);
-        if (news.image) {
+        formData.append("published_at", news.published_at || null);
+
+        const tagsArray = news.tags
+            ? news.tags.split(",").map((tag) => tag.trim())
+            : [];
+        tagsArray.forEach((tag) => formData.append("tags[]", tag));
+
+        if (news.image instanceof File) {
             formData.append("image", news.image);
         }
-        Inertia.post("/news", formData);
+
+        router.post("/admin/news/store", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
     }
 
     return (
@@ -46,6 +63,7 @@ export default function News() {
                         name="title"
                         value={news.title}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
@@ -54,6 +72,7 @@ export default function News() {
                         name="content"
                         value={news.content}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
@@ -76,7 +95,12 @@ export default function News() {
                 </div>
                 <div>
                     <label>Image</label>
-                    <input type="file" name="image" onChange={handleChange} />
+                    <input
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={handleChange}
+                    />
                 </div>
                 <button type="submit">Submit</button>
             </form>
