@@ -37,4 +37,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // tags routes
     Route::get('/admin/tags', [TagController::class, 'index'])->name('admin.tags');
+    Route::post('/admin/tags/store', [TagController::class, 'store'])->name('admin.tags.store');
+    Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy'])->name('admin.tags.destroy');
 });
