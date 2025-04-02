@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\AdminMiddleware;
@@ -33,4 +34,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     // news routes
     Route::get('/admin/news', [NewsController::class, 'index'])->name('admin.news');
     Route::post('/admin/news/store', [NewsController::class, 'store'])->name('admin.news.store');
+
+    // tags routes
+    Route::get('/admin/tags', [TagController::class, 'index'])->name('admin.tags');
 });
