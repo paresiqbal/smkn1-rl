@@ -11,12 +11,9 @@ class TagController extends Controller
 {
     public function index()
     {
-        // Fetch all tags from the database
-        $tags = Tag::all();
-
-        // Return the Inertia response with the tags data
+        // Return the tags list to the frontend
         return Inertia::render('Admin/Tags', [
-            'tags' => $tags,
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -26,24 +23,18 @@ class TagController extends Controller
             'name' => 'required|string|max:50|unique:tags,name',
         ]);
 
-        // Create the new tag
-        $tag = Tag::create($validatedData);
+        // Create a new tag
+        Tag::create($validatedData);
 
-        // Return an Inertia response with the updated tags list
-        return Inertia::render('Admin/Tags', [
-            'tags' => Tag::all(),  // Return all tags after creation
-            'message' => 'Tag created successfully!',
-        ]);
+        // Redirect to the index route (same URL) after creating the tag
+        return redirect()->route('admin.tags');
     }
 
     public function destroy(Tag $tag)
     {
         $tag->delete();
 
-        // Send a success message and redirect to the tags list page
-        return Inertia::render('Admin/Tags', [
-            'tags' => Tag::all(),  // Return the updated tags list
-            'message' => 'Tag deleted successfully!',
-        ]);
+        // Redirect to the index route (same URL) after deleting the tag
+        return redirect()->route('admin.tags');
     }
 }
