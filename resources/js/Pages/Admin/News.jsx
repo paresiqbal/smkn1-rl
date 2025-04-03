@@ -4,7 +4,6 @@ import { usePage } from "@inertiajs/react";
 
 // layout
 import AdminLayout from "../../Layouts/AdminLayout";
-import { ChevronRight } from "lucide-react";
 import Breadcrumb from "../../components/Breadcrumb";
 
 export default function News() {
