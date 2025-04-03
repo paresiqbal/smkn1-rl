@@ -82,7 +82,8 @@ const Sidebar = () => {
             label: "Artikel",
             icon: <Newspaper size="16" />,
             subItems: [
-                { label: "Berita", path: "/profil/visi-misi" },
+                { label: "Tag", path: "/admin/tags" },
+                { label: "Berita", path: "/admin/news" },
                 { label: "Pengumuman", path: "/profil/visi-misi" },
                 { label: "Agenda", path: "/profil/visi-misi" },
             ],
