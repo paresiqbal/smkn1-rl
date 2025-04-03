@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { router } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
+
+// layout
 import AdminLayout from "../../Layouts/AdminLayout";
+import { ChevronRight } from "lucide-react";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function News() {
-    const { tags = [] } = usePage().props; // Ensure tags is always an array
-
-    console.log(tags); // Log the tags to check if they are being passed correctly
-
+    const { tags = [] } = usePage().props;
     const [news, setNews] = useState({
         title: "",
         content: "",
@@ -14,6 +16,11 @@ export default function News() {
         tags: [],
         image: null,
     });
+
+    const breadcrumbItems = [
+        { label: "Home", href: "/" },
+        { label: "News", href: "/admin/news" },
+    ];
 
     function handleChange(e) {
         const key = e.target.name;
@@ -41,6 +48,7 @@ export default function News() {
         formData.append("title", news.title);
         formData.append("content", news.content);
         formData.append("published_at", news.published_at || null);
+
         news.tags.forEach((tag) => formData.append("tags[]", tag));
 
         if (news.image instanceof File) {
@@ -51,8 +59,15 @@ export default function News() {
     }
 
     return (
-        <div className="mx-auto max-w-2xl rounded-lg p-6 shadow-md">
-            <h1 className="mb-4 text-center text-2xl font-bold">Upload News</h1>
+        <div className="px-6 pt-14 md:pt-0">
+            <Breadcrumb items={breadcrumbItems} />
+            <div className="pb-6">
+                <h1 className="text-2xl font-bold">Buat Berita Baru</h1>
+                <p className="text-sm">
+                    Isi rincian untuk membuat berita baru. Semua kolom wajib
+                    diisi.
+                </p>
+            </div>
             <form
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
@@ -66,7 +81,7 @@ export default function News() {
                         value={news.title}
                         onChange={handleChange}
                         required
-                        className="w-full rounded border p-2"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
                 <div>
@@ -76,7 +91,7 @@ export default function News() {
                         value={news.content}
                         onChange={handleChange}
                         required
-                        className="w-full rounded border p-2"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
                 <div>
@@ -86,7 +101,7 @@ export default function News() {
                         name="published_at"
                         value={news.published_at}
                         onChange={handleChange}
-                        className="w-full rounded border p-2"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
                 <div>
@@ -103,11 +118,11 @@ export default function News() {
                                 ),
                             }))
                         }
-                        className="w-full rounded border p-2"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     >
                         {tags.length > 0 ? (
                             tags.map((tag) => (
-                                <option key={tag.id} value={tag.id}>
+                                <option key={tag.id} value={tag.name}>
                                     {tag.name}
                                 </option>
                             ))
@@ -123,7 +138,7 @@ export default function News() {
                         name="image"
                         accept="image/*"
                         onChange={handleChange}
-                        className="w-full rounded border p-2"
+                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
                 <button

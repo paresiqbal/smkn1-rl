@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\Tag;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class NewsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/News');
+        $tags = Tag::all();
+
+        return inertia('Admin/News', [
+            'tags' => $tags,
+        ]);
     }
 
     public function store(Request $request)
