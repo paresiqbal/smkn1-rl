@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-import { router } from "@inertiajs/react";
+import React, { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react";
 import AdminLayout from "../../Layouts/AdminLayout";
-import { useTags } from "../../hook/useTags"; // added import
 
 export default function News() {
+    const { tags = [] } = usePage().props; // Ensure tags is always an array
+
+    console.log(tags); // Log the tags to check if they are being passed correctly
+
     const [news, setNews] = useState({
         title: "",
         content: "",
         published_at: "",
-        tags: "",
+        tags: [],
         image: null,
     });
-    const { tags, loading, error } = useTags(); // fetch tags
 
     function handleChange(e) {
         const key = e.target.name;
@@ -21,8 +23,8 @@ export default function News() {
             value = e.target.files[0];
         }
 
-        setNews((news) => ({
-            ...news,
+        setNews((prev) => ({
+            ...prev,
             [key]: value,
         }));
     }
@@ -39,85 +41,98 @@ export default function News() {
         formData.append("title", news.title);
         formData.append("content", news.content);
         formData.append("published_at", news.published_at || null);
-
-        const tagsArray = news.tags
-            ? news.tags.split(",").map((tag) => tag.trim())
-            : [];
-        tagsArray.forEach((tag) => formData.append("tags[]", tag));
+        news.tags.forEach((tag) => formData.append("tags[]", tag));
 
         if (news.image instanceof File) {
             formData.append("image", news.image);
         }
 
-        router.post("/admin/news/store", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
+        router.post("/admin/news/store", formData);
     }
 
     return (
-        <div>
-            <h1>Upload News</h1>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="mx-auto max-w-2xl rounded-lg p-6 shadow-md">
+            <h1 className="mb-4 text-center text-2xl font-bold">Upload News</h1>
+            <form
+                onSubmit={handleSubmit}
+                encType="multipart/form-data"
+                className="space-y-4"
+            >
                 <div>
-                    <label>Title</label>
+                    <label className="block font-medium">Title</label>
                     <input
                         type="text"
                         name="title"
                         value={news.title}
                         onChange={handleChange}
                         required
+                        className="w-full rounded border p-2"
                     />
                 </div>
                 <div>
-                    <label>Content</label>
+                    <label className="block font-medium">Content</label>
                     <textarea
                         name="content"
                         value={news.content}
                         onChange={handleChange}
                         required
+                        className="w-full rounded border p-2"
                     />
                 </div>
                 <div>
-                    <label>Published Date</label>
+                    <label className="block font-medium">Published Date</label>
                     <input
                         type="date"
                         name="published_at"
                         value={news.published_at}
                         onChange={handleChange}
+                        className="w-full rounded border p-2"
                     />
                 </div>
                 <div>
-                    <label>Tags (comma separated)</label>
-                    <input
-                        type="text"
+                    <label className="block font-medium">Tags</label>
+                    <select
                         name="tags"
+                        multiple
                         value={news.tags}
-                        onChange={handleChange}
-                    />
+                        onChange={(e) =>
+                            setNews((prev) => ({
+                                ...prev,
+                                tags: [...e.target.selectedOptions].map(
+                                    (o) => o.value,
+                                ),
+                            }))
+                        }
+                        className="w-full rounded border p-2"
+                    >
+                        {tags.length > 0 ? (
+                            tags.map((tag) => (
+                                <option key={tag.id} value={tag.id}>
+                                    {tag.name}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No tags available</option>
+                        )}
+                    </select>
                 </div>
                 <div>
-                    <label>Image</label>
+                    <label className="block font-medium">Image</label>
                     <input
                         type="file"
                         name="image"
                         accept="image/*"
                         onChange={handleChange}
+                        className="w-full rounded border p-2"
                     />
                 </div>
-                <button type="submit">Submit</button>
+                <button
+                    type="submit"
+                    className="w-full rounded bg-blue-600 p-2 text-white hover:bg-blue-700"
+                >
+                    Submit
+                </button>
             </form>
-            <div>
-                <h2>Available Tags</h2>
-                {loading && <p>Loading tags...</p>}
-                {error && <p>{error}</p>}
-                {!loading && !error && (
-                    <ul>
-                        {tags.map((tag) => (
-                            <li key={tag.id}>{tag.name}</li>
-                        ))}
-                    </ul>
-                )}
-            </div>
         </div>
     );
 }

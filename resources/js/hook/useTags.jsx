@@ -1,26 +1,28 @@
 import { useState, useEffect } from "react";
+import { router, usePage } from "@inertiajs/react";
 
 export function useTags() {
-    const [tags, setTags] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { props } = usePage(); // Get Inertia props
+    const [tags, setTags] = useState(props.tags || []);
+    const [loading, setLoading] = useState(!props.tags);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("/admin/tags", { headers: { Accept: "application/json" } })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch tags");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setTags(data);
+        router.visit("/admin/tags", {
+            method: "get",
+            only: ["tags"], // Fetch only 'tags' from the response
+            preserveState: true,
+            onSuccess: (page) => {
+                console.log("Fetched tags:", page.props.tags);
+                setTags(page.props.tags || []);
                 setLoading(false);
-            })
-            .catch((error) => {
-                setError(error.message);
+            },
+            onError: (err) => {
+                console.error("Error fetching tags:", err);
+                setError("Failed to fetch tags");
                 setLoading(false);
-            });
+            },
+        });
     }, []);
 
     return { tags, loading, error };

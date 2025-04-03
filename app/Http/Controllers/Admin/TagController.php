@@ -11,8 +11,10 @@ class TagController extends Controller
 {
     public function index()
     {
+        $tags = Tag::all();
+
         return Inertia::render('Admin/Tags', [
-            'tags' => Tag::all(),
+            'tags' => $tags
         ]);
     }
 
