@@ -12,8 +12,19 @@ class NewsController extends Controller
     public function index()
     {
         $tags = Tag::all();
+        $news = News::with('tags')->latest()->paginate(10);
 
-        return inertia('Admin/News', [
+        return inertia('Admin/news/News', [
+            'tags' => $tags,
+            'news' => $news,
+        ]);
+    }
+
+    public function create()
+    {
+        $tags = Tag::all();
+
+        return inertia('Admin/news/create-news', [
             'tags' => $tags,
         ]);
     }

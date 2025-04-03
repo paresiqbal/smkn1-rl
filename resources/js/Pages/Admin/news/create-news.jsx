@@ -3,10 +3,10 @@ import { router } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 
 // layout
-import AdminLayout from "../../Layouts/AdminLayout";
-import Breadcrumb from "../../components/Breadcrumb";
+import AdminLayout from "../../../Layouts/AdminLayout";
+import Breadcrumb from "../../../components/Breadcrumb";
 
-export default function News() {
+export default function CreateNews() {
     const { tags = [] } = usePage().props;
     const [news, setNews] = useState({
         title: "",
@@ -151,4 +151,4 @@ export default function News() {
     );
 }
 
-News.layout = (page) => <AdminLayout children={page} />;
+CreateNews.layout = (page) => <AdminLayout children={page} />;
