@@ -11,7 +11,6 @@ class TagController extends Controller
 {
     public function index()
     {
-        // Return the tags list to the frontend
         return Inertia::render('Admin/Tags', [
             'tags' => Tag::all(),
         ]);
@@ -23,10 +22,8 @@ class TagController extends Controller
             'name' => 'required|string|max:50|unique:tags,name',
         ]);
 
-        // Create a new tag
         Tag::create($validatedData);
 
-        // Redirect to the index route (same URL) after creating the tag
         return redirect()->route('admin.tags');
     }
 
@@ -34,7 +31,6 @@ class TagController extends Controller
     {
         $tag->delete();
 
-        // Redirect to the index route (same URL) after deleting the tag
         return redirect()->route('admin.tags');
     }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { router } from "@inertiajs/react";
 import AdminLayout from "../../Layouts/AdminLayout";
+import { useTags } from "../../hook/useTags"; // added import
 
 export default function News() {
     const [news, setNews] = useState({
@@ -10,6 +11,7 @@ export default function News() {
         tags: "",
         image: null,
     });
+    const { tags, loading, error } = useTags(); // fetch tags
 
     function handleChange(e) {
         const key = e.target.name;
@@ -104,6 +106,18 @@ export default function News() {
                 </div>
                 <button type="submit">Submit</button>
             </form>
+            <div>
+                <h2>Available Tags</h2>
+                {loading && <p>Loading tags...</p>}
+                {error && <p>{error}</p>}
+                {!loading && !error && (
+                    <ul>
+                        {tags.map((tag) => (
+                            <li key={tag.id}>{tag.name}</li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 }
