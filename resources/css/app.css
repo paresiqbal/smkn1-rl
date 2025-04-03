@@ -25,6 +25,9 @@
 
     --font-space: "Space Mono", monospace;
     --font-geist: "Geist Mono", monospace;
+
+    --color-gray-primary: #1f2937;
+    --color-white: #ffffff;
 }
 
 @theme inline {
