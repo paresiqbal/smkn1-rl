@@ -1,11 +1,10 @@
 import React from "react";
-
-// layout
 import AdminLayout from "../../../Layouts/AdminLayout";
 import { Link } from "@inertiajs/react";
 
 export default function News({ news, tags }) {
-    console.log(news);
+    console.log("News Data:", news);
+    console.log("First News Tags:", news.data?.[0]?.tags);
 
     return (
         <div className="mx-auto max-w-2xl rounded-lg p-6 shadow-md">
@@ -26,33 +25,42 @@ export default function News({ news, tags }) {
                 <ul>
                     {news.data.map((item) => (
                         <li key={item.id} className="mb-4 rounded border p-4">
-                            <h3 className="font-semibold">{item.title}</h3>
+                            {/* News Title */}
+                            <h3 className="text-lg font-semibold">
+                                {item.title}
+                            </h3>
 
-                            {/* Render HTML content */}
-                            <div
-                                className="prose ql-editor max-w-none"
-                                dangerouslySetInnerHTML={{
-                                    __html: item.content,
-                                }}
-                            />
-
-                            <div>
-                                Published:{" "}
+                            {/* Published Date */}
+                            <div className="text-sm text-gray-600">
+                                Published:
                                 {new Date(item.published_at).toDateString()}
                             </div>
+
+                            {/* Tags */}
                             <div>
-                                Tags:{" "}
-                                {item.tags.length > 0
+                                Tags:
+                                {Array.isArray(item.tags) &&
+                                item.tags.length > 0
                                     ? item.tags
                                           .map((tag) => tag.name)
                                           .join(", ")
                                     : "No tags"}
                             </div>
+
+                            {/* Read More Button */}
+                            <div className="mt-2">
+                                <Link
+                                    href={`/admin/news/${item.id}`}
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    Read More →
+                                </Link>
+                            </div>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p>Loading news...</p>
+                <p>No news published yet.</p>
             )}
         </div>
     );

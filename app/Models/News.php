@@ -13,14 +13,8 @@ class News extends Model
         'title',
         'content',
         'published_at',
-        'tags',
         'image',
         'author_id',
-    ];
-
-    protected $casts = [
-        'tags' => 'array',
-        'published_at' => 'date',
     ];
 
     public function author()
