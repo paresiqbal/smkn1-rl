@@ -3,8 +3,8 @@ import { router } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 
 // layout
-import AdminLayout from "../../../Layouts/AdminLayout";
-import Breadcrumb from "../../../components/Breadcrumb";
+import AdminLayout from "@/layouts/AdminLayout";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export default function CreateNews() {
     const { tags = [] } = usePage().props;
