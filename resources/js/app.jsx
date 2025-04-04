@@ -8,6 +8,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { setThemeOnLoad } from "./theme";
 
 import "notyf/notyf.min.css";
+import "quill/dist/quill.snow.css";
 
 createInertiaApp({
     resolve: (name) => {

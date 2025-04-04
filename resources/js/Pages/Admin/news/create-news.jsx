@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { router } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
+import Editor from "@/components/Editor";
+import Delta from "quill-delta";
 
 // layout
 import AdminLayout from "@/layouts/AdminLayout";
@@ -20,6 +22,8 @@ export default function CreateNews() {
         { label: "Home", href: "/" },
         { label: "News", href: "/admin/news" },
     ];
+
+    const quillRef = useRef(null);
 
     function handleChange(e) {
         const key = e.target.name;
@@ -80,19 +84,24 @@ export default function CreateNews() {
                         value={news.title}
                         onChange={handleChange}
                         required
-                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
+
                 <div>
                     <label className="block font-medium">Content</label>
-                    <textarea
-                        name="content"
-                        value={news.content}
-                        onChange={handleChange}
-                        required
-                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                    <Editor
+                        ref={quillRef}
+                        defaultValue={new Delta()} // Default content
+                        onTextChange={(delta, oldDelta, source) => {
+                            setNews((prev) => ({
+                                ...prev,
+                                content: quillRef.current?.root.innerHTML, // Store HTML
+                            }));
+                        }}
                     />
                 </div>
+
                 <div>
                     <label className="block font-medium">Published Date</label>
                     <input
@@ -100,9 +109,10 @@ export default function CreateNews() {
                         name="published_at"
                         value={news.published_at}
                         onChange={handleChange}
-                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
+
                 <div>
                     <label className="block font-medium">Tags</label>
                     <select
@@ -117,7 +127,7 @@ export default function CreateNews() {
                                 ),
                             }))
                         }
-                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     >
                         {tags.length > 0 ? (
                             tags.map((tag) => (
@@ -130,6 +140,7 @@ export default function CreateNews() {
                         )}
                     </select>
                 </div>
+
                 <div>
                     <label className="block font-medium">Image</label>
                     <input
@@ -137,9 +148,10 @@ export default function CreateNews() {
                         name="image"
                         accept="image/*"
                         onChange={handleChange}
-                        className="focus:shadow-input-dark focus:dark:shadow-input-light w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
+
                 <button
                     type="submit"
                     className="w-full rounded bg-blue-600 p-2 text-white hover:bg-blue-700"

@@ -5,6 +5,8 @@ import AdminLayout from "../../../Layouts/AdminLayout";
 import { Link } from "@inertiajs/react";
 
 export default function News({ news, tags }) {
+    console.log(news);
+
     return (
         <div className="mx-auto max-w-2xl rounded-lg p-6 shadow-md">
             <h1 className="mb-4 text-center text-2xl font-bold">News List</h1>
@@ -20,22 +22,37 @@ export default function News({ news, tags }) {
             </div>
 
             {/* Display list of news */}
-            {news.length > 0 ? (
+            {news && news.data && news.data.length > 0 ? (
                 <ul>
-                    {news.map((item) => (
+                    {news.data.map((item) => (
                         <li key={item.id} className="mb-4 rounded border p-4">
                             <h3 className="font-semibold">{item.title}</h3>
-                            <p>{item.content}</p>
-                            <div>Published: {item.published_at}</div>
+
+                            {/* Render HTML content */}
+                            <div
+                                className="prose ql-editor max-w-none"
+                                dangerouslySetInnerHTML={{
+                                    __html: item.content,
+                                }}
+                            />
+
+                            <div>
+                                Published:{" "}
+                                {new Date(item.published_at).toDateString()}
+                            </div>
                             <div>
                                 Tags:{" "}
-                                {item.tags.map((tag) => tag.name).join(", ")}
+                                {item.tags.length > 0
+                                    ? item.tags
+                                          .map((tag) => tag.name)
+                                          .join(", ")
+                                    : "No tags"}
                             </div>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p>No news published yet.</p>
+                <p>Loading news...</p>
             )}
         </div>
     );
