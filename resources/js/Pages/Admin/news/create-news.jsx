@@ -92,11 +92,11 @@ export default function CreateNews() {
                     <label className="block font-medium">Content</label>
                     <Editor
                         ref={quillRef}
-                        defaultValue={new Delta()} // Default content
+                        defaultValue={new Delta()}
                         onTextChange={(delta, oldDelta, source) => {
                             setNews((prev) => ({
                                 ...prev,
-                                content: quillRef.current?.root.innerHTML, // Store HTML
+                                content: quillRef.current?.root.innerHTML,
                             }));
                         }}
                     />
