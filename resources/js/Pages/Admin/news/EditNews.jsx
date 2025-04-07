@@ -68,6 +68,15 @@ export default function EditNews() {
         });
     };
 
+    const handleDelete = () => {
+        if (!confirm("Yakin ingin menghapus berita ini?")) return;
+
+        router.delete(`/admin/news/${existingNews.id}`, {
+            onSuccess: () => notyf.success("Berita berhasil dihapus."),
+            onError: () => notyf.error("Gagal menghapus berita."),
+        });
+    };
+
     return (
         <div className="px-6 pt-14 pb-10 md:pt-0">
             <Breadcrumb items={breadcrumbItems} />
@@ -161,17 +170,23 @@ export default function EditNews() {
                     </div>
                 </div>
 
-                <button
-                    type="submit"
-                    disabled={submitting}
-                    className={`w-full border-2 border-black px-6 py-3 font-semibold transition-all focus:outline-none ${
-                        submitting
-                            ? "cursor-not-allowed bg-gray-300 text-gray-600"
-                            : "shadow-dark dark:shadow-light bg-yellow-300 text-black hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none"
-                    }`}
-                >
-                    {submitting ? "Menyimpan..." : "Simpan Perubahan"}
-                </button>
+                <div className="flex justify-between">
+                    <button
+                        type="submit"
+                        disabled={submitting}
+                        className="dark:shadow-light shadow-dark w-1/5 cursor-pointer border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
+                    >
+                        {submitting ? "Menyimpan..." : "Simpan Perubahan"}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleDelete}
+                        className="dark:shadow-light shadow-dark w-1/5 cursor-pointer border-2 border-black bg-red-400 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
+                    >
+                        Hapus Berita
+                    </button>
+                </div>
             </form>
         </div>
     );

@@ -37,6 +37,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::post('/admin/news/store', [NewsController::class, 'store'])->name('admin.news.store');
     Route::get('/admin/news/{news}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');
     Route::put('/admin/news/{news}', [NewsController::class, 'update'])->name('admin.news.update');
+    Route::delete('/admin/news/{id}', [NewsController::class, 'destroy'])->name('admin.news.destroy');
+
 
 
     // tags routes

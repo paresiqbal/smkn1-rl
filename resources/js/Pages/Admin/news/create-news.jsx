@@ -201,7 +201,7 @@ export default function CreateNews() {
                     className={`w-full border-2 border-black px-6 py-3 font-semibold transition-all focus:outline-none ${
                         submitting
                             ? "cursor-not-allowed bg-gray-300 text-gray-600"
-                            : "shadow-dark dark:shadow-light bg-yellow-300 text-black hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none"
+                            : "shadow-dark dark:shadow-light cursor-pointer bg-yellow-300 text-black hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none"
                     }`}
                 >
                     {submitting ? "Menyimpan..." : "Submit"}

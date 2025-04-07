@@ -105,4 +105,18 @@ class NewsController extends Controller
 
         return redirect()->route('admin.news.edit', $news)->with('success', 'News updated!');
     }
+
+    public function destroy($id)
+    {
+        $news = News::findOrFail($id);
+
+        if ($news->image && Storage::disk('public')->exists($news->image)) {
+            Storage::disk('public')->delete($news->image);
+        }
+
+        $news->tags()->detach();
+        $news->delete();
+
+        return redirect()->route('admin.news.index')->with('success', 'Berita berhasil dihapus!');
+    }
 }
