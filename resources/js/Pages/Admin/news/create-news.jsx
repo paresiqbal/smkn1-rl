@@ -1,21 +1,24 @@
 import React, { useState, useRef, useContext } from "react";
-import { router } from "@inertiajs/react";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
-// context
+// Context
 import NotyfContext from "@/context/NotyfContext";
 
-// layout
+// Layout & Components
 import AdminLayout from "@/layouts/AdminLayout";
 import Breadcrumb from "@/components/Breadcrumb";
-
-// lib
 import Editor from "@/components/Editor";
 import Delta from "quill-delta";
-import TagSelect from "../../../components/TagSelect";
+import TagSelect from "@/components/TagSelect";
 
 export default function CreateNews() {
     const { tags = [] } = usePage().props;
+    const notyf = useContext(NotyfContext);
+
+    const quillRef = useRef(null);
+    const dateInputRef = useRef(null);
+
+    const [submitting, setSubmitting] = useState(false);
     const [news, setNews] = useState({
         title: "",
         content: "",
@@ -23,8 +26,6 @@ export default function CreateNews() {
         tags: [],
         image: null,
     });
-    const notyf = useContext(NotyfContext);
-    const dateInputRef = useRef(null);
 
     const breadcrumbItems = [
         { label: "Home", href: "/admin/dashboard" },
@@ -32,46 +33,53 @@ export default function CreateNews() {
         { label: "Buat Berita", href: "/admin/news/create" },
     ];
 
-    const quillRef = useRef(null);
-
-    function handleChange(e) {
-        const key = e.target.name;
-        let value = e.target.value;
-
-        if (e.target.type === "file") {
-            value = e.target.files[0];
-        }
-
+    const handleChange = (e) => {
+        const { name, type, files, value } = e.target;
         setNews((prev) => ({
             ...prev,
-            [key]: value,
+            [name]: type === "file" ? files[0] : value,
         }));
-    }
+    };
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (submitting) return;
 
         if (!news.title || !news.content) {
             notyf.error("Judul dan Konten wajib diisi!");
             return;
         }
 
+        if (news.image) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+            if (!allowedTypes.includes(news.image.type)) {
+                notyf.error("Format gambar harus JPG, PNG, atau WEBP.");
+                return;
+            }
+
+            const maxSize = 2 * 1024 * 1024; // 2MB
+            if (news.image.size > maxSize) {
+                notyf.error("Ukuran gambar maksimal 2MB.");
+                return;
+            }
+        }
+
         const formData = new FormData();
         formData.append("title", news.title);
         formData.append("content", news.content);
         formData.append("published_at", news.published_at || null);
-
         news.tags.forEach((tag) => formData.append("tags[]", tag));
-
         if (news.image instanceof File) {
             formData.append("image", news.image);
         }
+
+        setSubmitting(true);
 
         router.post("/admin/news/store", formData, {
             onSuccess: () => {
                 notyf.success("Berita berhasil dibuat!");
 
-                // Clear form
                 setNews({
                     title: "",
                     content: "",
@@ -80,18 +88,18 @@ export default function CreateNews() {
                     image: null,
                 });
 
-                // Clear Quill editor
                 if (quillRef.current) {
                     quillRef.current.setContents(new Delta());
                 }
             },
-            onError: (errors) => {
+            onError: () => {
                 notyf.error(
                     "Gagal membuat berita. Silakan periksa input Anda.",
                 );
             },
+            onFinish: () => setSubmitting(false),
         });
-    }
+    };
 
     return (
         <div className="px-6 pt-14 pb-10 md:pt-0">
@@ -103,11 +111,13 @@ export default function CreateNews() {
                     diisi.
                 </p>
             </div>
+
             <form
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
                 className="space-y-4"
             >
+                {/* Judul */}
                 <div>
                     <label className="block font-medium">Judul</label>
                     <input
@@ -120,12 +130,13 @@ export default function CreateNews() {
                     />
                 </div>
 
+                {/* Konten */}
                 <div>
                     <label className="block font-medium">Konten</label>
                     <Editor
                         ref={quillRef}
                         defaultValue={new Delta()}
-                        onTextChange={(delta, oldDelta, source) => {
+                        onTextChange={() => {
                             setNews((prev) => ({
                                 ...prev,
                                 content: quillRef.current?.root.innerHTML,
@@ -134,8 +145,16 @@ export default function CreateNews() {
                     />
                 </div>
 
+                {/* Gambar */}
                 <div>
                     <label className="block font-medium">Gambar</label>
+                    {news.image && (
+                        <img
+                            src={URL.createObjectURL(news.image)}
+                            alt="Preview"
+                            className="mt-2 max-w-xs rounded"
+                        />
+                    )}
                     <input
                         type="file"
                         name="image"
@@ -145,20 +164,19 @@ export default function CreateNews() {
                     />
                 </div>
 
+                {/* Tag */}
                 <div>
                     <label className="block font-medium">Tag</label>
                     <TagSelect
                         options={tags}
                         value={news.tags}
                         onChange={(selectedTags) =>
-                            setNews((prev) => ({
-                                ...prev,
-                                tags: selectedTags,
-                            }))
+                            setNews((prev) => ({ ...prev, tags: selectedTags }))
                         }
                     />
                 </div>
 
+                {/* Tanggal Publis */}
                 <div>
                     <label className="block font-medium">Tanggal Publis</label>
                     <div
@@ -176,11 +194,17 @@ export default function CreateNews() {
                     </div>
                 </div>
 
+                {/* Submit Button */}
                 <button
                     type="submit"
-                    className="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
+                    disabled={submitting}
+                    className={`w-full border-2 border-black px-6 py-3 font-semibold transition-all focus:outline-none ${
+                        submitting
+                            ? "cursor-not-allowed bg-gray-300 text-gray-600"
+                            : "shadow-dark dark:shadow-light bg-yellow-300 text-black hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none"
+                    }`}
                 >
-                    Submit
+                    {submitting ? "Menyimpan..." : "Submit"}
                 </button>
             </form>
         </div>
