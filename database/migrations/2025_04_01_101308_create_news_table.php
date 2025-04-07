@@ -13,7 +13,6 @@ class CreateNewsTable extends Migration
             $table->string('title');
             $table->text('content');
             $table->date('published_at')->nullable();
-            $table->json('tags')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

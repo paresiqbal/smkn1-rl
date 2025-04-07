@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class NewsController extends Controller
 {
@@ -45,17 +46,25 @@ class NewsController extends Controller
             'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
         ]);
 
+        // Handle image upload
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('news_images', 'public');
             $validatedData['image'] = $path;
         }
 
-        $validatedData['tags'] = $request->tags ? json_encode($request->tags) : json_encode([]);
-
         $validatedData['author_id'] = auth()->id();
 
-        // Create news record
-        News::create($validatedData);
+        // Create the news without 'tags' key
+        $news = News::create(Arr::except($validatedData, ['tags']));
+
+        // Sync tags (create new ones if needed)
+        if (!empty($request->tags)) {
+            $tagIds = collect($request->tags)->map(function ($tagName) {
+                return Tag::firstOrCreate(['name' => $tagName])->id;
+            });
+
+            $news->tags()->sync($tagIds);
+        }
 
         return redirect()->back()->with('success', 'News uploaded successfully!');
     }
