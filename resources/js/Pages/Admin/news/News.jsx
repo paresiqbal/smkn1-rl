@@ -90,7 +90,7 @@ export default function News({ news, tags }) {
                     ))}
                 </ul>
             ) : (
-                <p>No news published yet.</p>
+                <p className="pt-4">Belum ada berita yang diterbitkan.</p>
             )}
         </div>
     );
