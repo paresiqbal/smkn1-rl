@@ -1,20 +1,30 @@
 import React from "react";
-import AdminLayout from "../../../Layouts/AdminLayout";
 import { Link } from "@inertiajs/react";
 
+// layout
+import AdminLayout from "../../../Layouts/AdminLayout";
+import Breadcrumb from "@/components/Breadcrumb";
+
 export default function News({ news, tags }) {
-    console.log("news", news);
+    const breadcrumbItems = [
+        { label: "Home", href: "/admin/dashboard" },
+        { label: "Berita", href: "/admin/news" },
+    ];
 
     return (
-        <div className="mx-auto max-w-2xl rounded-lg p-6 shadow-md">
-            <h1 className="mb-4 text-center text-2xl font-bold">News List</h1>
+        <div className="px-6 pt-14 pb-10 md:pt-0">
+            <Breadcrumb items={breadcrumbItems} />
+            <div className="pb-12">
+                <h1 className="text-2xl font-bold">Daftar Berita</h1>
+                <p className="text-sm">List Berita Yang Pernah Dibuat.</p>
+            </div>
 
-            <div className="mb-4">
+            <div className="mb-6">
                 <Link
                     href="/admin/news/create"
-                    className="rounded bg-blue-600 p-2 text-white hover:bg-blue-700"
+                    className="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
                 >
-                    Create New News
+                    Buat Berita Baru
                 </Link>
             </div>
 
@@ -22,7 +32,10 @@ export default function News({ news, tags }) {
             {news && news.data && news.data.length > 0 ? (
                 <ul>
                     {news.data.map((item) => (
-                        <li key={item.id} className="mb-4 rounded border p-4">
+                        <li
+                            key={item.id}
+                            className="dark:shadow-light shadow-dark container mb-4 border-2 border-black p-4 dark:border-white"
+                        >
                             {/* News Title */}
                             <h3 className="text-lg font-semibold">
                                 {item.title}
@@ -30,29 +43,28 @@ export default function News({ news, tags }) {
 
                             {/* Published Date */}
                             <div className="text-sm text-gray-600">
-                                Published:
                                 {new Date(item.published_at).toDateString()}
                             </div>
 
                             {/* Tags */}
                             <div>
-                                Tags:
                                 {Array.isArray(item.tags) &&
-                                item.tags.length > 0
-                                    ? item.tags
-                                          .map((tag) => tag.name)
-                                          .join(", ")
-                                    : "No tags"}
-                            </div>
-
-                            {/* Read More Button */}
-                            <div className="mt-2">
-                                <Link
-                                    href={`/admin/news/${item.id}`}
-                                    className="text-blue-600 hover:underline"
-                                >
-                                    Read More →
-                                </Link>
+                                item.tags.length > 0 ? (
+                                    <div className="mt-2 flex flex-wrap gap-2">
+                                        {item.tags.map((tag) => (
+                                            <span
+                                                key={tag.id}
+                                                className="dark:shadow-input-light shadow-input-dark cursor-pointer border-2 border-black bg-red-400 px-3 py-1 text-sm font-medium text-black dark:border-white"
+                                            >
+                                                {tag.name}
+                                            </span>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <span className="text-sm text-gray-400 italic">
+                                        No tags
+                                    </span>
+                                )}
                             </div>
                         </li>
                     ))}
