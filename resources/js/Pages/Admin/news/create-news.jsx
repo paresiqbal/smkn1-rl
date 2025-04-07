@@ -2,16 +2,17 @@ import React, { useState, useRef, useContext } from "react";
 import { router } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 
-// rte
-import Editor from "@/components/Editor";
-import Delta from "quill-delta";
-
 // context
 import NotyfContext from "@/context/NotyfContext";
 
 // layout
 import AdminLayout from "@/layouts/AdminLayout";
 import Breadcrumb from "@/components/Breadcrumb";
+
+// lib
+import Editor from "@/components/Editor";
+import Delta from "quill-delta";
+import Select from "react-select";
 
 export default function CreateNews() {
     const { tags = [] } = usePage().props;
@@ -130,30 +131,27 @@ export default function CreateNews() {
 
                 <div>
                     <label className="block font-medium">Tag</label>
-                    <select
+                    <Select
+                        isMulti
                         name="tags"
-                        multiple
-                        value={news.tags}
-                        onChange={(e) =>
+                        options={tags.map((tag) => ({
+                            value: tag.id,
+                            label: tag.name,
+                        }))}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        value={tags
+                            .filter((tag) => news.tags.includes(tag.id))
+                            .map((tag) => ({ value: tag.id, label: tag.name }))}
+                        onChange={(selectedOptions) =>
                             setNews((prev) => ({
                                 ...prev,
-                                tags: [...e.target.selectedOptions].map(
-                                    (o) => o.value,
+                                tags: selectedOptions.map(
+                                    (option) => option.value,
                                 ),
                             }))
                         }
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
-                    >
-                        {tags.length > 0 ? (
-                            tags.map((tag) => (
-                                <option key={tag.id} value={tag.name}>
-                                    {tag.name}
-                                </option>
-                            ))
-                        ) : (
-                            <option disabled>No tags available</option>
-                        )}
-                    </select>
+                    />
                 </div>
 
                 <div>
@@ -166,7 +164,6 @@ export default function CreateNews() {
                         className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
                 </div>
-
                 <button
                     type="submit"
                     className="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"

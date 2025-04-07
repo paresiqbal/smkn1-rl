@@ -3,14 +3,12 @@ import AdminLayout from "../../../Layouts/AdminLayout";
 import { Link } from "@inertiajs/react";
 
 export default function News({ news, tags }) {
-    console.log("News Data:", news);
-    console.log("First News Tags:", news.data?.[0]?.tags);
+    console.log("news", news);
 
     return (
         <div className="mx-auto max-w-2xl rounded-lg p-6 shadow-md">
             <h1 className="mb-4 text-center text-2xl font-bold">News List</h1>
 
-            {/* Button to navigate to Create News page */}
             <div className="mb-4">
                 <Link
                     href="/admin/news/create"

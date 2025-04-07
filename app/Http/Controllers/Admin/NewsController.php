@@ -32,7 +32,6 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
-        // Ensure only admins can store news
         if (!auth()->user() || auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action.');
         }
@@ -42,11 +41,10 @@ class NewsController extends Controller
             'content'      => 'required|string',
             'published_at' => 'nullable|date',
             'tags'         => 'nullable|array',
-            'tags.*'       => 'string|max:50',
+            'tags.*'       => 'integer|exists:tags,id',
             'image'        => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
         ]);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('news_images', 'public');
             $validatedData['image'] = $path;
@@ -54,17 +52,15 @@ class NewsController extends Controller
 
         $validatedData['author_id'] = auth()->id();
 
-        // Create the news without 'tags' key
-        $news = News::create(Arr::except($validatedData, ['tags']));
+        // Remove tags from validated data because it's for relation, not news table
+        $tags = $validatedData['tags'] ?? [];
+        unset($validatedData['tags']);
 
-        // Sync tags (create new ones if needed)
-        if (!empty($request->tags)) {
-            $tagIds = collect($request->tags)->map(function ($tagName) {
-                return Tag::firstOrCreate(['name' => $tagName])->id;
-            });
+        // Create the news
+        $news = News::create($validatedData);
 
-            $news->tags()->sync($tagIds);
-        }
+        // Sync tags to the pivot table
+        $news->tags()->sync($tags);
 
         return redirect()->back()->with('success', 'News uploaded successfully!');
     }
