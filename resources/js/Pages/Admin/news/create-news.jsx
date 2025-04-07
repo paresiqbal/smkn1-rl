@@ -25,6 +25,7 @@ export default function CreateNews() {
         image: null,
     });
     const notyf = useContext(NotyfContext);
+    const dateInputRef = useRef(null);
 
     const breadcrumbItems = [
         { label: "Home", href: "/" },
@@ -79,7 +80,7 @@ export default function CreateNews() {
     }
 
     return (
-        <div className="px-6 pt-14 md:pt-0">
+        <div className="px-6 pt-14 pb-10 md:pt-0">
             <Breadcrumb items={breadcrumbItems} />
             <div className="pb-6">
                 <h1 className="text-2xl font-bold">Buat Berita Baru</h1>
@@ -120,11 +121,11 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Tanggal Publis</label>
+                    <label className="block font-medium">Gambar</label>
                     <input
-                        type="date"
-                        name="published_at"
-                        value={news.published_at}
+                        type="file"
+                        name="image"
+                        accept="image/*"
                         onChange={handleChange}
                         className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
                     />
@@ -145,15 +146,22 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Gambar</label>
-                    <input
-                        type="file"
-                        name="image"
-                        accept="image/*"
-                        onChange={handleChange}
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
-                    />
+                    <label className="block font-medium">Tanggal Publis</label>
+                    <div
+                        onClick={() => dateInputRef.current?.showPicker()}
+                        className="cursor-pointer"
+                    >
+                        <input
+                            ref={dateInputRef}
+                            type="date"
+                            name="published_at"
+                            value={news.published_at}
+                            onChange={handleChange}
+                            className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                        />
+                    </div>
                 </div>
+
                 <button
                     type="submit"
                     className="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
