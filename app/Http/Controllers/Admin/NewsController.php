@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -13,6 +14,12 @@ class NewsController extends Controller
     {
         $tags = Tag::all();
         $news = News::with('tags')->latest()->paginate(10);
+
+        // Modify each item to include the full image URL
+        $news->getCollection()->transform(function ($item) {
+            $item->image = $item->image ? Storage::url($item->image) : null;
+            return $item;
+        });
 
         return inertia('Admin/news/News', [
             'tags' => $tags,
