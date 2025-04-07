@@ -1,12 +1,13 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -31,6 +32,11 @@ Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->n
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
+    // tags routes
+    Route::get('/admin/tags', [TagController::class, 'index'])->name('admin.tags');
+    Route::post('/admin/tags', [TagController::class, 'store'])->name('admin.tags.store');
+    Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy'])->name('admin.tags.destroy');
+
     // news routes
     Route::get('/admin/news', [NewsController::class, 'index'])->name('admin.news.index');
     Route::get('/admin/news/create', [NewsController::class, 'create'])->name('admin.news.create');
@@ -39,10 +45,11 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::put('/admin/news/{news}', [NewsController::class, 'update'])->name('admin.news.update');
     Route::delete('/admin/news/{id}', [NewsController::class, 'destroy'])->name('admin.news.destroy');
 
-
-
-    // tags routes
-    Route::get('/admin/tags', [TagController::class, 'index'])->name('admin.tags');
-    Route::post('/admin/tags', [TagController::class, 'store'])->name('admin.tags.store');
-    Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy'])->name('admin.tags.destroy');
+    // agenda routes
+    Route::get('/admin/agenda', [AgendaController::class, 'index'])->name('admin.agenda.index');
+    Route::get('/admin/agenda/create', [AgendaController::class, 'create'])->name('admin.agenda.create');
+    Route::post('/admin/agenda/store', [AgendaController::class, 'store'])->name('admin.agenda.store');
+    Route::get('/admin/agenda/{agenda}/edit', [AgendaController::class, 'edit'])->name('admin.agenda.edit');
+    Route::put('/admin/agenda/{agenda}', [AgendaController::class, 'update'])->name('admin.agenda.update');
+    Route::delete('/admin/agenda/{agenda}', [AgendaController::class, 'destroy'])->name('admin.agenda.destroy');
 });
