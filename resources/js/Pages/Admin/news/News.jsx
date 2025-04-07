@@ -34,49 +34,58 @@ export default function News({ news, tags }) {
                     {news.data.map((item) => (
                         <li
                             key={item.id}
-                            className="dark:shadow-light shadow-dark container mb-4 flex items-center justify-between border-2 border-black p-4 dark:border-white"
+                            className="dark:shadow-light shadow-dark container mb-4 border-2 border-black transition dark:border-white"
                         >
-                            <div>
-                                {/* News Title */}
-                                <h3 className="text-lg font-semibold">
-                                    {item.title}
-                                </h3>
+                            <Link
+                                href={`/admin/news/${item.id}/edit`}
+                                className="flex items-center justify-between gap-4 p-4"
+                            >
+                                <div>
+                                    {/* News Title */}
+                                    <h3 className="text-lg font-semibold">
+                                        {item.title}
+                                    </h3>
 
-                                {/* Published Date */}
-                                <div className="text-sm text-gray-600">
-                                    {new Date(item.published_at).toDateString()}
+                                    {/* Published Date */}
+                                    <div className="text-sm text-gray-600">
+                                        {new Date(
+                                            item.published_at,
+                                        ).toDateString()}
+                                    </div>
+
+                                    {/* Tags */}
+                                    <div>
+                                        {Array.isArray(item.tags) &&
+                                        item.tags.length > 0 ? (
+                                            <div className="mt-2 flex flex-wrap gap-2">
+                                                {item.tags.map((tag) => (
+                                                    <span
+                                                        key={tag.id}
+                                                        className="dark:shadow-input-light shadow-input-dark border-2 border-black bg-red-400 px-3 py-1 text-sm font-medium text-black dark:border-white"
+                                                    >
+                                                        {tag.name}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <span className="text-sm text-gray-400 italic">
+                                                No tags
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
 
-                                {/* Tags */}
-                                <div>
-                                    {Array.isArray(item.tags) &&
-                                    item.tags.length > 0 ? (
-                                        <div className="mt-2 flex flex-wrap gap-2">
-                                            {item.tags.map((tag) => (
-                                                <span
-                                                    key={tag.id}
-                                                    className="dark:shadow-input-light shadow-input-dark cursor-pointer border-2 border-black bg-red-400 px-3 py-1 text-sm font-medium text-black dark:border-white"
-                                                >
-                                                    {tag.name}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <span className="text-sm text-gray-400 italic">
-                                            No tags
-                                        </span>
+                                {/* News Image */}
+                                <div className="min-w-[120px]">
+                                    {item.image && (
+                                        <img
+                                            src={item.image}
+                                            alt={item.title}
+                                            className="h-28 w-28 rounded object-cover"
+                                        />
                                     )}
                                 </div>
-                            </div>
-                            <div>
-                                {item.image && (
-                                    <img
-                                        src={item.image}
-                                        alt={item.title}
-                                        className="object-full max-h-28 w-full rounded"
-                                    />
-                                )}
-                            </div>
+                            </Link>
                         </li>
                     ))}
                 </ul>
