@@ -77,7 +77,7 @@ export default function CreateNews() {
                 className="space-y-4"
             >
                 <div>
-                    <label className="block font-medium">Title</label>
+                    <label className="block font-medium">Judul</label>
                     <input
                         type="text"
                         name="title"
@@ -89,7 +89,7 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Content</label>
+                    <label className="block font-medium">Konten</label>
                     <Editor
                         ref={quillRef}
                         defaultValue={new Delta()}
@@ -103,7 +103,7 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Published Date</label>
+                    <label className="block font-medium">Tanggal</label>
                     <input
                         type="date"
                         name="published_at"
@@ -114,7 +114,7 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Tags</label>
+                    <label className="block font-medium">Tag</label>
                     <select
                         name="tags"
                         multiple
@@ -142,7 +142,7 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Image</label>
+                    <label className="block font-medium">Gambar</label>
                     <input
                         type="file"
                         name="image"
@@ -154,9 +154,9 @@ export default function CreateNews() {
 
                 <button
                     type="submit"
-                    className="w-full rounded bg-blue-600 p-2 text-white hover:bg-blue-700"
+                    className="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
                 >
-                    Submit
+                    Post
                 </button>
             </form>
         </div>
