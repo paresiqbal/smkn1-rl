@@ -84,8 +84,7 @@ const Sidebar = () => {
             subItems: [
                 { label: "Tag", path: "/admin/tags" },
                 { label: "Berita", path: "/admin/news" },
-                { label: "Pengumuman", path: "/profil/visi-misi" },
-                { label: "Agenda", path: "/profil/visi-misi" },
+                { label: "Agenda", path: "/admin/agenda" },
             ],
         },
         {
