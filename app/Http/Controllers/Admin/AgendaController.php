@@ -53,7 +53,7 @@ class AgendaController extends Controller
 
     public function edit(Agenda $agenda)
     {
-        return inertia('Admin/Agenda/Edit', ['agenda' => $agenda]);
+        return inertia('Admin/agenda/EditAgenda', ['agenda' => $agenda]);
     }
 
     public function update(Request $request, Agenda $agenda)
