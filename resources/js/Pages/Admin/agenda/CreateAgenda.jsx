@@ -18,7 +18,8 @@ export default function CreateAgenda() {
     const notyf = useContext(NotyfContext);
 
     const quillRef = useRef(null);
-    const dateInputRef = useRef(null);
+    const startDateRef = useRef(null);
+    const endDateRef = useRef(null);
 
     const [submitting, setSubmitting] = useState(false);
     const [agenda, setAgenda] = useState({
@@ -166,28 +167,44 @@ export default function CreateAgenda() {
                     />
                 </div>
 
-                {/* Tanggal Mulai */}
-                <div>
-                    <label className="block font-medium">Tanggal Mulai</label>
-                    <input
-                        type="date"
-                        name="start_date"
-                        value={agenda.start_date}
-                        onChange={handleChange}
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
-                    />
-                </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                        <label className="block font-medium">
+                            Tanggal Mulai
+                        </label>
+                        <div
+                            onClick={() => startDateRef.current?.showPicker()}
+                            className="cursor-pointer"
+                        >
+                            <input
+                                ref={startDateRef}
+                                type="date"
+                                name="start_date"
+                                value={agenda.start_date}
+                                onChange={handleChange}
+                                className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                            />
+                        </div>
+                    </div>
 
-                {/* Tanggal Selesai */}
-                <div>
-                    <label className="block font-medium">Tanggal Selesai</label>
-                    <input
-                        type="date"
-                        name="end_date"
-                        value={agenda.end_date}
-                        onChange={handleChange}
-                        className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
-                    />
+                    <div>
+                        <label className="block font-medium">
+                            Tanggal Selesai
+                        </label>
+                        <div
+                            onClick={() => endDateRef.current?.showPicker()}
+                            className="cursor-pointer"
+                        >
+                            <input
+                                ref={endDateRef}
+                                type="date"
+                                name="end_date"
+                                value={agenda.end_date}
+                                onChange={handleChange}
+                                className="w-full border-2 border-black p-2.5 focus:bg-yellow-300 focus:outline-none dark:border-white focus:dark:text-black"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Submit Button */}
