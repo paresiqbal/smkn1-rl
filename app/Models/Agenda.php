@@ -15,6 +15,7 @@ class Agenda extends Model
         'image',
         'start_date',
         'end_date',
+        'author_id'
     ];
 
     public function author()

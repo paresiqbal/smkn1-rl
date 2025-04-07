@@ -11,17 +11,27 @@ class AgendaController extends Controller
 {
     public function index()
     {
-        $agendas = Agenda::latest()->paginate(10);
-        return inertia('Admin/agenda/Agenda', ['agendas' => $agendas]);
+        $agendas = Agenda::latest()->get()->map(function ($agenda) {
+            $agenda->image = $agenda->image ? Storage::url($agenda->image) : null;
+            return $agenda;
+        });
+
+        return inertia('Admin/agenda/Agenda', [
+            'agendas' => $agendas,
+        ]);
     }
 
     public function create()
     {
-        return inertia('Admin/agenda/Create');
+        return inertia('Admin/agenda/CreateAgenda');
     }
 
     public function store(Request $request)
     {
+        if (!auth()->user() || auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',

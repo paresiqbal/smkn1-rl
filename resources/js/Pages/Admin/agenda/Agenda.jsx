@@ -5,11 +5,13 @@ import { Link } from "@inertiajs/react";
 import AdminLayout from "../../../Layouts/AdminLayout";
 import Breadcrumb from "@/components/Breadcrumb";
 
-export default function Agenda({ agenda }) {
+export default function Agenda({ agendas }) {
     const breadcrumbItems = [
         { label: "Home", href: "/admin/dashboard" },
         { label: "Agenda", href: "/admin/agenda" },
     ];
+
+    console.log("AGENDA DATA:", agendas);
 
     return (
         <div className="px-6 pt-14 pb-10 md:pt-0">
@@ -29,9 +31,9 @@ export default function Agenda({ agenda }) {
             </div>
 
             {/* Display list of agenda */}
-            {agenda && agenda.data && agenda.data.length > 0 ? (
+            {agendas && agendas.length > 0 ? (
                 <ul>
-                    {agenda.data.map((item) => (
+                    {agendas.map((item) => (
                         <li
                             key={item.id}
                             className="dark:shadow-light shadow-dark container mb-4 border-2 border-black transition dark:border-white"
@@ -46,11 +48,15 @@ export default function Agenda({ agenda }) {
                                         {item.title}
                                     </h3>
 
-                                    {/* Published Date */}
+                                    {/* Date Range */}
                                     <div className="text-sm text-gray-600">
                                         {new Date(
-                                            item.published_at,
-                                        ).toDateString()}
+                                            item.start_date,
+                                        ).toLocaleDateString()}{" "}
+                                        -{" "}
+                                        {new Date(
+                                            item.end_date,
+                                        ).toLocaleDateString()}
                                     </div>
                                 </div>
 
