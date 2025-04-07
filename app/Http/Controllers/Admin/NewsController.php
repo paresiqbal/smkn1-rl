@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class NewsController extends Controller
 {
@@ -52,14 +51,11 @@ class NewsController extends Controller
 
         $validatedData['author_id'] = auth()->id();
 
-        // Remove tags from validated data because it's for relation, not news table
         $tags = $validatedData['tags'] ?? [];
         unset($validatedData['tags']);
 
-        // Create the news
         $news = News::create($validatedData);
 
-        // Sync tags to the pivot table
         $news->tags()->sync($tags);
 
         return redirect()->back()->with('success', 'News uploaded successfully!');

@@ -13,6 +13,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Editor from "@/components/Editor";
 import Delta from "quill-delta";
 import Select from "react-select";
+import TagSelect from "../../../components/TagSelect";
 
 export default function CreateNews() {
     const { tags = [] } = usePage().props;
@@ -131,24 +132,13 @@ export default function CreateNews() {
 
                 <div>
                     <label className="block font-medium">Tag</label>
-                    <Select
-                        isMulti
-                        name="tags"
-                        options={tags.map((tag) => ({
-                            value: tag.id,
-                            label: tag.name,
-                        }))}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        value={tags
-                            .filter((tag) => news.tags.includes(tag.id))
-                            .map((tag) => ({ value: tag.id, label: tag.name }))}
-                        onChange={(selectedOptions) =>
+                    <TagSelect
+                        options={tags}
+                        value={news.tags}
+                        onChange={(selectedTags) =>
                             setNews((prev) => ({
                                 ...prev,
-                                tags: selectedOptions.map(
-                                    (option) => option.value,
-                                ),
+                                tags: selectedTags,
                             }))
                         }
                     />
