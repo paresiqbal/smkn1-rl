@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(News::class, 'author_id');
     }
+
+    public function agendas()
+    {
+        return $this->hasMany(Agenda::class, 'author_id');
+    }
 }
