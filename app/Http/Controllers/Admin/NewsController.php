@@ -67,4 +67,42 @@ class NewsController extends Controller
 
         return redirect()->back()->with('success', 'News uploaded successfully!');
     }
+
+    public function edit(News $news)
+    {
+        $tags = Tag::all();
+
+        // Load tags relationship so it's available for form binding
+        $news->load('tags');
+
+        return inertia('Admin/news/EditNews', [
+            'news' => $news,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function update(Request $request, News $news)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'published_at' => 'nullable|date',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:3072',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('news_images', 'public');
+            $validated['image'] = $path;
+        }
+
+        $tags = $validated['tags'] ?? [];
+        unset($validated['tags']);
+
+        $news->update($validated);
+        $news->tags()->sync($tags);
+
+        return redirect()->route('admin.news.edit', $news)->with('success', 'News updated!');
+    }
 }

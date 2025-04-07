@@ -35,6 +35,9 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/news', [NewsController::class, 'index'])->name('admin.news.index');
     Route::get('/admin/news/create', [NewsController::class, 'create'])->name('admin.news.create');
     Route::post('/admin/news/store', [NewsController::class, 'store'])->name('admin.news.store');
+    Route::get('/admin/news/{news}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');
+    Route::put('/admin/news/{news}', [NewsController::class, 'update'])->name('admin.news.update');
+
 
     // tags routes
     Route::get('/admin/tags', [TagController::class, 'index'])->name('admin.tags');
