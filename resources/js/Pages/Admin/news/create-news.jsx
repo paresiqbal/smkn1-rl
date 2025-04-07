@@ -12,7 +12,6 @@ import Breadcrumb from "@/components/Breadcrumb";
 // lib
 import Editor from "@/components/Editor";
 import Delta from "quill-delta";
-import Select from "react-select";
 import TagSelect from "../../../components/TagSelect";
 
 export default function CreateNews() {
@@ -28,8 +27,9 @@ export default function CreateNews() {
     const dateInputRef = useRef(null);
 
     const breadcrumbItems = [
-        { label: "Home", href: "/" },
-        { label: "News", href: "/admin/news" },
+        { label: "Home", href: "/admin/dashboard" },
+        { label: "Berita", href: "/admin/news" },
+        { label: "Buat Berita", href: "/admin/news/create" },
     ];
 
     const quillRef = useRef(null);
@@ -70,6 +70,20 @@ export default function CreateNews() {
         router.post("/admin/news/store", formData, {
             onSuccess: () => {
                 notyf.success("Berita berhasil dibuat!");
+
+                // Clear form
+                setNews({
+                    title: "",
+                    content: "",
+                    published_at: "",
+                    tags: [],
+                    image: null,
+                });
+
+                // Clear Quill editor
+                if (quillRef.current) {
+                    quillRef.current.setContents(new Delta());
+                }
             },
             onError: (errors) => {
                 notyf.error(
