@@ -1,14 +1,18 @@
 import React, { useState, useRef, useContext } from "react";
 import { router, usePage } from "@inertiajs/react";
 
+// lib
+import Delta from "quill-delta";
+
 // Context
 import NotyfContext from "@/context/NotyfContext";
 
 // Layout & Components
 import AdminLayout from "@/layouts/AdminLayout";
 import Breadcrumb from "@/components/Breadcrumb";
+
+// components
 import Editor from "@/components/Editor";
-import Delta from "quill-delta";
 import TagSelect from "@/components/TagSelect";
 
 export default function CreateNews() {

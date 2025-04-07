@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Editor from "@/components/Editor";
 import Delta from "quill-delta";
 import TagSelect from "@/components/TagSelect";
+import ConfirmDeleteModal from "../../../components/ConfirmDeleteModal";
 
 export default function EditNews() {
     const { news: existingNews, tags = [] } = usePage().props;
@@ -13,6 +14,7 @@ export default function EditNews() {
 
     const quillRef = useRef(null);
     const dateInputRef = useRef(null);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const [submitting, setSubmitting] = useState(false);
     const [news, setNews] = useState({
@@ -69,11 +71,18 @@ export default function EditNews() {
     };
 
     const handleDelete = () => {
-        if (!confirm("Yakin ingin menghapus berita ini?")) return;
+        setShowConfirm(true);
+    };
 
+    const confirmDelete = () => {
+        setShowConfirm(false);
         router.delete(`/admin/news/${existingNews.id}`, {
-            onSuccess: () => notyf.success("Berita berhasil dihapus."),
-            onError: () => notyf.error("Gagal menghapus berita."),
+            onSuccess: () => {
+                notyf.success("Berita berhasil dihapus!");
+            },
+            onError: () => {
+                notyf.error("Gagal menghapus berita.");
+            },
         });
     };
 
@@ -169,6 +178,13 @@ export default function EditNews() {
                         />
                     </div>
                 </div>
+
+                <ConfirmDeleteModal
+                    open={showConfirm}
+                    onConfirm={confirmDelete}
+                    onCancel={() => setShowConfirm(false)}
+                    message="Apakah kamu yakin ingin menghapus berita ini? Tindakan ini tidak bisa dibatalkan."
+                />
 
                 <div className="flex justify-between">
                     <button
