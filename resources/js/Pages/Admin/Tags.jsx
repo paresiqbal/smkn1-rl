@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react";
 
 // layout
 import AdminLayout from "../../Layouts/AdminLayout";
+import Breadcrumb from "@/components/Breadcrumb";
 
 // context
 import NotyfContext from "@/context/NotyfContext";
@@ -10,6 +11,11 @@ import NotyfContext from "@/context/NotyfContext";
 export default function Tags({ tags }) {
     const notyf = useContext(NotyfContext);
     const [tagName, setTagName] = useState("");
+
+    const breadcrumbItems = [
+        { label: "Home", href: "/admin/dashboard" },
+        { label: "Tag", href: "/admin/tags" },
+    ];
 
     // Handle form submission
     function handleSubmit(e) {
@@ -38,12 +44,15 @@ export default function Tags({ tags }) {
 
     return (
         <div className="max-w-3xl px-6 pt-14 md:pt-0">
-            <h1 className="mb-4 text-3xl font-bold">Tags Manager</h1>
-            <p className="mb-6">
-                Buat Tags untuk Berita, Pengumuman, Agenda dan Lainnya.
-                Tambahkan tag dengan mengetik dan menekan Enter atau mengklik
-                Tambah.
-            </p>
+            <Breadcrumb items={breadcrumbItems} />
+            <div className="pb-12">
+                <h1 className="text-2xl font-bold">Tags Manager</h1>
+                <p className="text-sm">
+                    Buat Tags untuk Berita, Pengumuman, Agenda dan Lainnya.
+                    Tambahkan tag dengan mengetik dan menekan Enter atau
+                    mengklik Tambah.
+                </p>
+            </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="mb-6 flex max-w-lg gap-3">
