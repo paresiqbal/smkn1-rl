@@ -1,8 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { router } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
+
+// rte
 import Editor from "@/components/Editor";
 import Delta from "quill-delta";
+
+// context
+import NotyfContext from "@/context/NotyfContext";
 
 // layout
 import AdminLayout from "@/layouts/AdminLayout";
@@ -17,6 +22,7 @@ export default function CreateNews() {
         tags: [],
         image: null,
     });
+    const notyf = useContext(NotyfContext);
 
     const breadcrumbItems = [
         { label: "Home", href: "/" },
@@ -43,7 +49,7 @@ export default function CreateNews() {
         e.preventDefault();
 
         if (!news.title || !news.content) {
-            alert("Title and Content are required!");
+            notyf.error("Judul dan Konten wajib diisi!");
             return;
         }
 
@@ -58,7 +64,16 @@ export default function CreateNews() {
             formData.append("image", news.image);
         }
 
-        router.post("/admin/news/store", formData);
+        router.post("/admin/news/store", formData, {
+            onSuccess: () => {
+                notyf.success("Berita berhasil dibuat!");
+            },
+            onError: (errors) => {
+                notyf.error(
+                    "Gagal membuat berita. Silakan periksa input Anda.",
+                );
+            },
+        });
     }
 
     return (
@@ -103,7 +118,7 @@ export default function CreateNews() {
                 </div>
 
                 <div>
-                    <label className="block font-medium">Tanggal</label>
+                    <label className="block font-medium">Tanggal Publis</label>
                     <input
                         type="date"
                         name="published_at"
@@ -156,7 +171,7 @@ export default function CreateNews() {
                     type="submit"
                     className="dark:shadow-light shadow-dark w-full border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none"
                 >
-                    Post
+                    Submit
                 </button>
             </form>
         </div>
