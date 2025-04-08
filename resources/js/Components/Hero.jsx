@@ -3,7 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 
 export default function Hero() {
     return (
-        <div className="relative h-[500px] w-screen">
+        <div className="relative h-[500px] w-full">
             <img
                 src="/assets/school.jpg"
                 alt="school"
@@ -20,7 +20,7 @@ export default function Hero() {
                             sequence={[
                                 "SMK Negeri 1 Rejang Lebong",
                                 2000,
-                                "",
+                                "", // clear
                                 500,
                             ]}
                             wrapper="span"

@@ -5,10 +5,10 @@ import QuickLinks from "../components/QuickLinks";
 export default function Home() {
     return (
         <div>
-            <div className="m-0 p-0">
+            <div className="-mx-4 lg:-mx-24">
                 <Hero />
             </div>
-            <div>
+            <div className="container mx-auto px-4 lg:px-24">
                 <QuickLinks />
             </div>
         </div>
