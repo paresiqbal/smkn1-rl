@@ -5,6 +5,7 @@ import About from "@/components/About";
 import AcademicProgram from "@/components/AcademicProgram";
 import NewsSection from "../components/NewsSection";
 import Testimonial from "../components/Testimonial";
+import CallToAction from "../components/CallToAction";
 
 export default function Home() {
     return (
@@ -21,6 +22,9 @@ export default function Home() {
             </div>
             <NewsSection />
             <Testimonial />
+            <div className="-mx-4 lg:-mx-24">
+                <CallToAction />
+            </div>
         </div>
     );
 }

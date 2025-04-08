@@ -1,7 +1,8 @@
 import React from "react";
 import { usePage } from "@inertiajs/react";
 
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function MainLayout({ children }) {
     const { auth } = usePage().props;
@@ -12,6 +13,7 @@ export default function MainLayout({ children }) {
             <main className="flex w-full flex-1 justify-center selection:bg-red-300 lg:px-24 dark:selection:bg-orange-400">
                 {children}
             </main>
+            <Footer />
         </div>
     );
 }
