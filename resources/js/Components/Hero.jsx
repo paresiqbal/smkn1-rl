@@ -15,7 +15,7 @@ export default function Hero() {
             <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
                 <h1 className="mb-4 text-3xl font-bold md:text-5xl">
                     Welcome to{" "}
-                    <span className="inline-block min-w-[300px] text-yellow-300">
+                    <span className="inline-block min-w-[300px] text-[#EFBF04]">
                         <TypeAnimation
                             sequence={[
                                 "SMK Negeri 1 Rejang Lebong",
