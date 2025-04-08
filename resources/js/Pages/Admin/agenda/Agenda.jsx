@@ -32,7 +32,7 @@ export default function Agenda({ agendas }) {
 
             {/* Display list of agenda */}
             {agendas && agendas.length > 0 ? (
-                <ul>
+                <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {agendas.map((item) => (
                         <li
                             key={item.id}
