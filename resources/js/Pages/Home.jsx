@@ -4,6 +4,7 @@ import QuickLinks from "@/components/QuickLinks";
 import About from "@/components/About";
 import AcademicProgram from "@/components/AcademicProgram";
 import NewsSection from "../components/NewsSection";
+import Testimonial from "../components/Testimonial";
 
 export default function Home() {
     return (
@@ -19,6 +20,7 @@ export default function Home() {
                 <AcademicProgram />
             </div>
             <NewsSection />
+            <Testimonial />
         </div>
     );
 }
