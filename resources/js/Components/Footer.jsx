@@ -13,7 +13,7 @@ import React from "react";
 
 export default function Footer() {
     return (
-        <footer className="bg-zinc-950 px-16">
+        <footer className="bg-zinc-950 px-16 text-white">
             <div className="container py-16">
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
                     {/* Brand & Description */}
@@ -34,7 +34,7 @@ export default function Footer() {
                                     <a
                                         key={idx}
                                         href="#"
-                                        className="hover:text-white"
+                                        className="hover:text-yellow-400"
                                     >
                                         <Icon className="h-5 w-5" />
                                         <span className="sr-only">
@@ -48,7 +48,7 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="mb-4 text-lg font-semibold text-white">
+                        <h4 className="mb-4 text-lg font-semibold">
                             Quick Links
                         </h4>
                         <ul className="space-y-2 text-sm">
