@@ -39,7 +39,7 @@ export default function Hero() {
                     <button className="dark:shadow-light shadow-dark border-2 border-black bg-yellow-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none">
                         Daftar Sekarang
                     </button>
-                    <button className="dark:shadow-light shadow-dark border-2 border-black bg-red-300 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none">
+                    <button className="dark:shadow-light shadow-dark border-2 border-black bg-red-400 px-6 py-3 font-semibold text-black transition-all hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none focus:outline-none">
                         Brosur PPDB
                     </button>
                 </div>

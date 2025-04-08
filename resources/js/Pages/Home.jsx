@@ -14,7 +14,7 @@ export default function Home() {
                 <QuickLinks />
             </div>
             <About />
-            <div className="">
+            <div className="-mx-4 lg:-mx-24">
                 <AcademicProgram />
             </div>
         </div>
