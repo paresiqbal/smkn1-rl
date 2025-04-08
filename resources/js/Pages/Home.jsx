@@ -1,7 +1,8 @@
 import React from "react";
 import Hero from "@/components/Hero";
-import QuickLinks from "../components/QuickLinks";
-import About from "../components/About";
+import QuickLinks from "@/components/QuickLinks";
+import About from "@/components/About";
+import AcademicProgram from "@/components/AcademicProgram";
 
 export default function Home() {
     return (
@@ -13,6 +14,9 @@ export default function Home() {
                 <QuickLinks />
             </div>
             <About />
+            <div className="">
+                <AcademicProgram />
+            </div>
         </div>
     );
 }
