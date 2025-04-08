@@ -77,8 +77,8 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="sticky top-0 z-50 p-4 font-semibold lg:mx-24 lg:px-0 lg:py-4">
-            <div className="container mx-auto flex items-center justify-between">
+        <nav className="sticky top-0 z-50 w-full bg-yellow-50 dark:bg-zinc-900">
+            <div className="mx-auto flex max-w-screen-xl items-center justify-between p-4 font-semibold lg:px-0 lg:py-4">
                 <Link
                     href="/"
                     className="flex items-center text-2xl font-bold text-black dark:text-white"

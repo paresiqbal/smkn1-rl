@@ -81,3 +81,11 @@
 .ql-container {
     min-height: 300px;
 }
+
+html,
+body,
+#app {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
