@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\PublicNewsController;
 
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -28,6 +29,7 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
 });
 
 Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -53,3 +55,5 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::put('/admin/agenda/{agenda}', [AgendaController::class, 'update'])->name('admin.agenda.update');
     Route::delete('/admin/agenda/{agenda}', [AgendaController::class, 'destroy'])->name('admin.agenda.destroy');
 });
+
+Route::get('/news-preview', [PublicNewsController::class, 'index']);

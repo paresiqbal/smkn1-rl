@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import QuickLinks from "@/components/QuickLinks";
 import About from "@/components/About";
 import AcademicProgram from "@/components/AcademicProgram";
+import NewsSection from "../components/NewsSection";
 
 export default function Home() {
     return (
@@ -17,6 +18,7 @@ export default function Home() {
             <div className="-mx-4 lg:-mx-24">
                 <AcademicProgram />
             </div>
+            <NewsSection />
         </div>
     );
 }
