@@ -28,6 +28,7 @@ export default function Footer() {
                             Nurturing minds, inspiring futures, and building
                             tomorrow's leaders today.
                         </p>
+                        <p>test</p>
                         <div className="flex gap-4">
                             {[Facebook, Twitter, Instagram, Youtube].map(
                                 (Icon, idx) => (
