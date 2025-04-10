@@ -57,3 +57,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 });
 
 Route::get('/news-preview', [PublicNewsController::class, 'index']);
+Route::get('/profile/visi-misi', function () {
+    return Inertia::render('Public/Profile/VisiMisi');
+});

@@ -38,6 +38,14 @@ const Navbar = () => {
 
     const navItems = [
         {
+            label: "Profil",
+            subItems: [
+                { label: "Visi & Misi", path: "/profile/visi-misi" },
+                { label: "Sejarah", path: "/profil/sejarah" },
+                { label: "Fasilitas", path: "/profil/fasilitas" },
+            ],
+        },
+        {
             label: "Artikel",
             subItems: [
                 { label: "Berita", path: "/profil/visi-misi" },
@@ -46,11 +54,28 @@ const Navbar = () => {
             ],
         },
         {
-            label: "Profil",
+            label: "Jurusan",
             subItems: [
-                { label: "Visi & Misi", path: "/profil/visi-misi" },
-                { label: "Sejarah", path: "/profil/visi-misi" },
-                { label: "Fasilitas", path: "/profil/visi-misi" },
+                { label: "Komputer & Jaringan", path: "/profil/tkj" },
+                { label: "Bisnis Sepeda Motor", path: "/profil/visi-misi" },
+                { label: "Kendaraan Ringan", path: "/profil/visi-misi" },
+                { label: "Elektronika", path: "/profil/visi-misi" },
+                { label: "Desain Pemodelan", path: "/profil/visi-misi" },
+                {
+                    label: "Instalasi Tenaga Listrik",
+                    path: "/profil/visi-misi",
+                },
+                { label: "Pengelasan", path: "/profil/visi-misi" },
+            ],
+        },
+        {
+            label: "Panduan",
+            subItems: [
+                { label: "Pendaftaran", path: "/profil/pendaftaran" },
+                { label: "Biaya Sekolah", path: "/profil/pendaftaran" },
+                { label: "Kalender Akademik", path: "/profil/pendaftaran" },
+                { label: "FAQ", path: "/profil/pendaftaran" },
+                { label: "Download", path: "/profil/pendaftaran" },
             ],
         },
     ];
@@ -120,7 +145,7 @@ const Navbar = () => {
                                 )}
                                 {item.subItems &&
                                     openDesktopSub === item.label && (
-                                        <div className="ring-opacity-5 absolute right-0 mt-1 min-w-[160px] rounded-md bg-yellow-300 py-1 shadow-lg ring-2 ring-black dark:bg-gray-800">
+                                        <div className="ring-opacity-5 absolute right-0 mt-1 min-w-[180px] rounded-md bg-yellow-300 py-1 shadow-lg ring-2 ring-black dark:bg-gray-800">
                                             {item.subItems.map((subItem) => (
                                                 <Link
                                                     key={subItem.label}

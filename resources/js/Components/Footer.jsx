@@ -25,10 +25,9 @@ export default function Footer() {
                             </span>
                         </div>
                         <p className="mb-6 text-sm leading-relaxed">
-                            Nurturing minds, inspiring futures, and building
-                            tomorrow's leaders today.
+                            Memelihara pikiran, menginspirasi masa depan, dan
+                            membangun pemimpin masa depan hari ini.
                         </p>
-                        <p>test</p>
                         <div className="flex gap-4">
                             {[Facebook, Twitter, Instagram, Youtube].map(
                                 (Icon, idx) => (
