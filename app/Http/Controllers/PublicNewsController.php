@@ -24,7 +24,8 @@ class PublicNewsController extends Controller
     public function list(Request $request)
     {
         $tags = Tag::all();
-        $query = News::with('tags')->latest();
+
+        $query = News::with('tags');
 
         if ($request->has('tag')) {
             $query->whereHas('tags', function ($q) use ($request) {
@@ -32,8 +33,9 @@ class PublicNewsController extends Controller
             });
         }
 
-        $news = $query->paginate(10)->withQueryString();
+        $news = $query->latest()->paginate(10);
 
+        // Modify each item to include the full image URL
         $news->getCollection()->transform(function ($item) {
             $item->image = $item->image ? Storage::url($item->image) : null;
             return $item;
