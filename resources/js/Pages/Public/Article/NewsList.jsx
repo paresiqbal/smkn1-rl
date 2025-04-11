@@ -15,56 +15,56 @@ export default function NewsList() {
             {/* News cards */}
             <div className="space-y-6 py-16">
                 {news.data.map((item) => (
-                    <Link
-                        key={item.id}
-                        href={`/news/${item.id}`}
-                        className="hover:shadow-dark hover:dark:shadow-light block overflow-hidden rounded-lg border-2 border-black dark:border-white"
-                    >
-                        {item.image && (
-                            <img
-                                src={item.image}
-                                alt={item.title}
-                                className="h-64 w-full object-cover"
-                            />
-                        )}
-                        <div className="space-y-2 p-4">
-                            <h2 className="text-xl font-semibold">
-                                {item.title}
-                            </h2>
+                    <div key={item.id} className="mx-auto max-w-3xl">
+                        <Link
+                            href={`/news/${item.id}`}
+                            className="hover:shadow-dark hover:dark:shadow-light block overflow-hidden rounded-lg border-2 border-black dark:border-white"
+                        >
+                            {item.image && (
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    className="h-64 w-full object-cover"
+                                />
+                            )}
+                            <div className="space-y-2 p-4">
+                                <h2 className="text-xl font-semibold">
+                                    {item.title}
+                                </h2>
 
-                            {/* Date */}
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                                {new Date(item.created_at).toLocaleDateString(
-                                    "id-ID",
-                                    {
+                                {/* Date */}
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    {new Date(
+                                        item.created_at,
+                                    ).toLocaleDateString("id-ID", {
                                         year: "numeric",
                                         month: "long",
                                         day: "numeric",
-                                    },
-                                )}
-                            </p>
+                                    })}
+                                </p>
 
-                            {/* Tags */}
-                            <div className="py-4 text-sm">
-                                {item.tags.map((tag) => (
-                                    <span
-                                        key={tag.id}
-                                        className="shadow-input-dark dark:shadow-input-light mr-2 border-2 border-black px-3 py-1 text-sm dark:border-white"
-                                    >
-                                        {tag.name}
-                                    </span>
-                                ))}
+                                {/* Tags */}
+                                <div className="py-4 text-sm">
+                                    {item.tags.map((tag) => (
+                                        <span
+                                            key={tag.id}
+                                            className="shadow-input-dark dark:shadow-input-light mr-2 border-2 border-black px-3 py-1 text-sm dark:border-white"
+                                        >
+                                            {tag.name}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* HTML Content */}
+                                <div
+                                    className="line-clamp-3 text-gray-700 dark:text-gray-200"
+                                    dangerouslySetInnerHTML={{
+                                        __html: item.content,
+                                    }}
+                                />
                             </div>
-
-                            {/* HTML Content */}
-                            <div
-                                className="line-clamp-3 text-gray-700 dark:text-gray-200"
-                                dangerouslySetInnerHTML={{
-                                    __html: item.content,
-                                }}
-                            />
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                 ))}
             </div>
 
