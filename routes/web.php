@@ -60,3 +60,6 @@ Route::get('/news-preview', [PublicNewsController::class, 'index']);
 Route::get('/profile/visi-misi', function () {
     return Inertia::render('Public/Profile/VisiMisi');
 });
+Route::get('/profile/sambutan', function () {
+    return Inertia::render('Public/Profile/Sambutan');
+});
