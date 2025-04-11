@@ -18,7 +18,7 @@ export default function NewsList() {
                     <Link
                         key={item.id}
                         href={`/news/${item.id}`}
-                        className="block overflow-hidden rounded-lg border border-gray-300 transition hover:shadow-lg"
+                        className="hover:shadow-dark hover:dark:shadow-light block overflow-hidden rounded-lg border-2 border-black dark:border-white"
                     >
                         {item.image && (
                             <img
@@ -31,26 +31,45 @@ export default function NewsList() {
                             <h2 className="text-xl font-semibold">
                                 {item.title}
                             </h2>
-                            <div className="text-sm text-gray-600">
+
+                            {/* Date */}
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                {new Date(item.created_at).toLocaleDateString(
+                                    "id-ID",
+                                    {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                    },
+                                )}
+                            </p>
+
+                            {/* Tags */}
+                            <div className="py-4 text-sm">
                                 {item.tags.map((tag) => (
                                     <span
                                         key={tag.id}
-                                        className="mr-2 rounded-full bg-red-100 px-2 py-1 text-xs text-red-600"
+                                        className="shadow-input-dark dark:shadow-input-light mr-2 border-2 border-black px-3 py-1 text-sm dark:border-white"
                                     >
                                         {tag.name}
                                     </span>
                                 ))}
                             </div>
-                            <p className="line-clamp-3 text-gray-700">
-                                {item.content}
-                            </p>
+
+                            {/* HTML Content */}
+                            <div
+                                className="line-clamp-3 text-gray-700 dark:text-gray-200"
+                                dangerouslySetInnerHTML={{
+                                    __html: item.content,
+                                }}
+                            />
                         </div>
                     </Link>
                 ))}
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center gap-2">
+            <div className="flex justify-center gap-2 pb-10">
                 {news.links.map((link, i) =>
                     link.url ? (
                         <Link
