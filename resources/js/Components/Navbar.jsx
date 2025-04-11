@@ -41,8 +41,8 @@ const Navbar = () => {
             label: "Profil",
             subItems: [
                 { label: "Visi & Misi", path: "/profile/visi-misi" },
-                { label: "Sejarah", path: "/profil/sejarah" },
-                { label: "Fasilitas", path: "/profil/fasilitas" },
+                { label: "Fasilitas", path: "/profile/fasilitas" },
+                { label: "Sambutan Kepala Sekolah", path: "/profile/sambutan" },
             ],
         },
         {
