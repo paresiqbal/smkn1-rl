@@ -15,7 +15,7 @@ export default function NewsList() {
             {/* News cards */}
             <div className="space-y-6 py-16">
                 {news.data.map((item) => (
-                    <div key={item.id} className="mx-auto max-w-3xl">
+                    <div key={item.id} className="mx-auto max-w-xl">
                         <Link
                             href={`/news/${item.id}`}
                             className="hover:shadow-dark hover:dark:shadow-light block overflow-hidden rounded-lg border-2 border-black dark:border-white"
@@ -33,7 +33,7 @@ export default function NewsList() {
                                 </h2>
 
                                 {/* Date */}
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
                                     {new Date(
                                         item.created_at,
                                     ).toLocaleDateString("id-ID", {
