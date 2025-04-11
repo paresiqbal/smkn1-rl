@@ -17,12 +17,16 @@ export default function Home() {
                 <QuickLinks />
             </div>
             <About />
-            <div className="-mx-4 lg:-mx-24">
+            <div className="-mx-4 px-4 lg:-mx-24">
                 <AcademicProgram />
             </div>
-            <NewsSection />
-            <Testimonial />
-            <div className="-mx-4 lg:-mx-24">
+            <div className="p-4">
+                <NewsSection />
+            </div>
+            <div className="p-4">
+                <Testimonial />
+            </div>
+            <div className="-mx-4 p-4 lg:-mx-24">
                 <CallToAction />
             </div>
         </div>
