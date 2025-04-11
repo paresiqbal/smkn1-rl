@@ -21,12 +21,19 @@ class PublicNewsController extends Controller
         return response()->json($news);
     }
 
-    public function list()
+    public function list(Request $request)
     {
         $tags = Tag::all();
-        $news = News::with('tags')->latest()->paginate(10);
+        $query = News::with('tags')->latest();
 
-        // Modify each item to include the full image URL
+        if ($request->has('tag')) {
+            $query->whereHas('tags', function ($q) use ($request) {
+                $q->where('id', $request->tag);
+            });
+        }
+
+        $news = $query->paginate(10)->withQueryString();
+
         $news->getCollection()->transform(function ($item) {
             $item->image = $item->image ? Storage::url($item->image) : null;
             return $item;

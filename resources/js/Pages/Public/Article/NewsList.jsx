@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, usePage } from "@inertiajs/react";
+import TagFilter from "../../../components/TagFilter";
 
 export default function NewsList() {
     const { news, tags } = usePage().props;
@@ -9,15 +10,8 @@ export default function NewsList() {
             <h1 className="text-center text-3xl font-bold">Daftar Berita</h1>
 
             {/* Optional tag filters */}
-            <div className="flex flex-wrap justify-center gap-2">
-                {tags.map((tag) => (
-                    <span
-                        key={tag.id}
-                        className="rounded-full bg-gray-200 px-3 py-1 text-sm"
-                    >
-                        {tag.name}
-                    </span>
-                ))}
+            <div>
+                <TagFilter />
             </div>
 
             {/* News cards */}
@@ -25,7 +19,7 @@ export default function NewsList() {
                 {news.data.map((item) => (
                     <Link
                         key={item.id}
-                        href={`/news/${item.id}`} // change if you use slug
+                        href={`/news/${item.id}`}
                         className="block overflow-hidden rounded-lg border border-gray-300 transition hover:shadow-lg"
                     >
                         {item.image && (
