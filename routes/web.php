@@ -63,3 +63,6 @@ Route::get('/profile/visi-misi', function () {
 Route::get('/profile/sambutan', function () {
     return Inertia::render('Public/Profile/Sambutan');
 });
+Route::get('/profile/fasilitas', function () {
+    return Inertia::render('Public/Profile/Fasilitas');
+});
