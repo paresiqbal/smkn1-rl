@@ -57,6 +57,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 });
 
 Route::get('/news-preview', [PublicNewsController::class, 'index']);
+
+// profile
 Route::get('/profile/visi-misi', function () {
     return Inertia::render('Public/Profile/VisiMisi');
 });
@@ -66,3 +68,6 @@ Route::get('/profile/sambutan', function () {
 Route::get('/profile/fasilitas', function () {
     return Inertia::render('Public/Profile/Fasilitas');
 });
+
+// article
+Route::get('/article/news-list', [PublicNewsController::class, 'list'])->name('news.list');
