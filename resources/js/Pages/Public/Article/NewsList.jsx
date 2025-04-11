@@ -6,16 +6,14 @@ export default function NewsList() {
     const { news, tags } = usePage().props;
 
     return (
-        <div className="mx-auto max-w-5xl space-y-8 p-4">
-            <h1 className="text-center text-3xl font-bold">Daftar Berita</h1>
-
-            {/* Optional tag filters */}
+        <div className="mx-auto max-w-screen-md px-4 pt-16">
+            <h1 className="text-5xl font-bold">Berita</h1>
             <div>
                 <TagFilter />
             </div>
 
             {/* News cards */}
-            <div className="space-y-6">
+            <div className="space-y-6 py-16">
                 {news.data.map((item) => (
                     <Link
                         key={item.id}
