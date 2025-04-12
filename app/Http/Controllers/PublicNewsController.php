@@ -47,14 +47,14 @@ class PublicNewsController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(News $news)
     {
-        $news = News::with('tags')->findOrFail($id);
+        $news->load('tags', 'author');
 
         $news->image = $news->image ? Storage::url($news->image) : null;
 
         return inertia('Public/Article/NewsDetail', [
-            'news' => $news
+            'news' => $news,
         ]);
     }
 }
