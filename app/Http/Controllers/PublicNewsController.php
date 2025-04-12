@@ -41,7 +41,7 @@ class PublicNewsController extends Controller
             return $item;
         });
 
-        return inertia('Public/Article/NewsList', [
+        return inertia('Public/Article/News/NewsList', [
             'tags' => $tags,
             'news' => $news,
         ]);
@@ -53,7 +53,7 @@ class PublicNewsController extends Controller
 
         $news->image = $news->image ? Storage::url($news->image) : null;
 
-        return inertia('Public/Article/NewsDetail', [
+        return inertia('Public/Article/News/NewsDetail', [
             'news' => $news,
         ]);
     }

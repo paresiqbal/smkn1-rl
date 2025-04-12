@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, usePage } from "@inertiajs/react";
-import TagFilter from "../../../components/TagFilter";
+import TagFilter from "../../../../components/TagFilter";
 
 export default function NewsList() {
     const { news, tags } = usePage().props;
@@ -17,7 +17,7 @@ export default function NewsList() {
                 {news.data.map((item) => (
                     <div key={item.id} className="mx-auto max-w-xl">
                         <Link
-                            href={`/article/${item.id}`}
+                            href={`/article/news/${item.id}`}
                             className="hover:shadow-dark hover:dark:shadow-light block overflow-hidden rounded-lg border-2 border-black dark:border-white"
                         >
                             {item.image && (

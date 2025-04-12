@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\PublicAgendaController;
 use App\Http\Controllers\PublicNewsController;
 
 Route::get('/', function () {
@@ -71,4 +72,5 @@ Route::get('/profile/fasilitas', function () {
 
 // article
 Route::get('/article/news-list', [PublicNewsController::class, 'list'])->name('news.list');
-Route::get('/article/{news}', [PublicNewsController::class, 'show'])->name('news.show');
+Route::get('/article/news/{news}', [PublicNewsController::class, 'show'])->name('news.show');
+Route::get('/article/agenda', [PublicAgendaController::class, 'index'])->name('agenda.index');
