@@ -29,7 +29,7 @@ export default function TagFilter() {
                     <button
                         key={tag.id}
                         onClick={() => handleTagClick(tag.id)}
-                        className={`shadow-input-dark dark:shadow-input-light border-2 border-black px-3 py-1 text-sm dark:border-white ${
+                        className={`shadow-input-dark dark:shadow-input-light cursor-pointer border-2 border-black px-3 py-1 text-sm dark:border-white ${
                             parseInt(selectedTag) === tag.id
                                 ? "bg-black text-white"
                                 : "bg-gray-300 text-black"

@@ -49,8 +49,8 @@ const Navbar = () => {
             label: "Artikel",
             subItems: [
                 { label: "Berita", path: "/article/news-list" },
-                { label: "Pengumuman", path: "/profil/visi-misi" },
-                { label: "Agenda", path: "/profil/visi-misi" },
+                { label: "Agenda", path: "/article/agenda" },
+                { label: "Blog", path: "/profil/visi-misi" },
             ],
         },
         {
