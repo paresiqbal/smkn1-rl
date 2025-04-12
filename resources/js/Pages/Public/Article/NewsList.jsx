@@ -17,7 +17,7 @@ export default function NewsList() {
                 {news.data.map((item) => (
                     <div key={item.id} className="mx-auto max-w-xl">
                         <Link
-                            href={`/news/${item.id}`}
+                            href={`/article/${item.id}`}
                             className="hover:shadow-dark hover:dark:shadow-light block overflow-hidden rounded-lg border-2 border-black dark:border-white"
                         >
                             {item.image && (

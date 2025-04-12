@@ -24,9 +24,9 @@ class PublicNewsController extends Controller
     public function list(Request $request)
     {
         $tags = Tag::all();
-
         $query = News::with('tags');
 
+        // filter base on tags
         if ($request->has('tag')) {
             $query->whereHas('tags', function ($q) use ($request) {
                 $q->where('id', $request->tag);
@@ -44,6 +44,17 @@ class PublicNewsController extends Controller
         return inertia('Public/Article/NewsList', [
             'tags' => $tags,
             'news' => $news,
+        ]);
+    }
+
+    public function show($id)
+    {
+        $news = News::with('tags')->findOrFail($id);
+
+        $news->image = $news->image ? Storage::url($news->image) : null;
+
+        return inertia('Public/Article/NewsDetail', [
+            'news' => $news
         ]);
     }
 }

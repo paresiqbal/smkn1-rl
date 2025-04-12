@@ -71,3 +71,4 @@ Route::get('/profile/fasilitas', function () {
 
 // article
 Route::get('/article/news-list', [PublicNewsController::class, 'list'])->name('news.list');
+Route::get('/article/{news}', [PublicNewsController::class, 'show'])->name('news.show');
