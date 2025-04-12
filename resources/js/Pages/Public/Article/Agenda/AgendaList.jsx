@@ -22,11 +22,11 @@ export default function AgendaList() {
                                 className="h-48 w-full border-b border-black object-cover dark:border-white"
                             />
                         )}
-                        <div className="p-4">
+                        <div className="bg-red-300 p-4 text-gray-900 dark:bg-gray-800 dark:text-white">
                             <h2 className="text-base font-semibold">
                                 {agenda.title}
                             </h2>
-                            <p className="mb-1 text-xs text-gray-500">
+                            <p className="mb-1 text-xs">
                                 {new Date(agenda.start_date).toLocaleDateString(
                                     "id-ID",
                                 )}{" "}
