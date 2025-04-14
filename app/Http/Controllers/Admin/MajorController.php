@@ -12,7 +12,7 @@ class MajorController extends Controller
     {
         $majors = Majors::withCount(['subjects', 'galleries', 'careers'])->latest()->get();
 
-        return inertia('Admin/Majors/Index', [
+        return inertia('Admin/major/Major', [
             'majors' => $majors,
         ]);
     }
