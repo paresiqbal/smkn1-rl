@@ -66,4 +66,15 @@ class MajorController extends Controller
 
         return redirect()->route('admin.majors.index')->with('success', 'Major updated successfully.');
     }
+
+    public function destroy(Majors $major)
+    {
+        if ($major->image) {
+            Storage::delete($major->image);
+        }
+
+        $major->delete();
+
+        return redirect()->route('admin.majors.index')->with('success', 'Major deleted.');
+    }
 }
