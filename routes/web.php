@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\PublicAgendaController;
@@ -55,6 +56,14 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/agenda/{agenda}/edit', [AgendaController::class, 'edit'])->name('admin.agenda.edit');
     Route::put('/admin/agenda/{agenda}', [AgendaController::class, 'update'])->name('admin.agenda.update');
     Route::delete('/admin/agenda/{agenda}', [AgendaController::class, 'destroy'])->name('admin.agenda.destroy');
+
+    // major routes
+    Route::get('/admin/majors', [MajorController::class, 'index'])->name('admin.majors.index');
+    Route::get('/admin/majors/create', [MajorController::class, 'create'])->name('admin.majors.create');
+    Route::post('/admin/majors', [MajorController::class, 'store'])->name('admin.majors.store');
+    Route::get('/admin/majors/{major}/edit', [MajorController::class, 'edit'])->name('admin.majors.edit');
+    Route::put('/admin/majors/{major}', [MajorController::class, 'update'])->name('admin.majors.update');
+    Route::delete('/admin/majors/{major}', [MajorController::class, 'destroy'])->name('admin.majors.destroy');
 });
 
 Route::get('/news-preview', [PublicNewsController::class, 'index']);
