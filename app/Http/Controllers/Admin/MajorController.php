@@ -16,4 +16,9 @@ class MajorController extends Controller
             'majors' => $majors,
         ]);
     }
+
+    public function create()
+    {
+        return inertia('Admin/major/CreateMajor');
+    }
 }
