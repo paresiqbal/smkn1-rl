@@ -29,6 +29,10 @@ export default function Home() {
             <div className="-mx-4 p-4 lg:-mx-24">
                 <CallToAction />
             </div>
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Placeat, explicabo?
+            </p>
         </div>
     );
 }
