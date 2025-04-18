@@ -30,6 +30,7 @@ export default function Home() {
                 <CallToAction />
             </div>
             <h1>Test</h1>
+            <h1>Test lagi</h1>
         </div>
     );
 }
