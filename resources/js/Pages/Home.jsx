@@ -29,8 +29,6 @@ export default function Home() {
             <div className="-mx-4 p-4 lg:-mx-24">
                 <CallToAction />
             </div>
-            <h1>Test</h1>
-            <h1>Test lagi</h1>
         </div>
     );
 }
