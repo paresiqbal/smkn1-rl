@@ -8,6 +8,10 @@ export default function NewsList() {
     return (
         <div className="mx-auto max-w-screen-md px-4 pt-16">
             <h1 className="text-5xl font-bold">Berita</h1>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Similique, sint?
+            </p>
             <div>
                 <TagFilter />
             </div>
