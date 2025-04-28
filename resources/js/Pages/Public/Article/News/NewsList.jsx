@@ -8,7 +8,6 @@ export default function NewsList() {
     return (
         <div className="mx-auto max-w-screen-md px-4 pt-16">
             <h1 className="text-5xl font-bold">Berita</h1>
-            <h1>lorem10</h1>
             <div>
                 <TagFilter />
             </div>
