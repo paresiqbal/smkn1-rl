@@ -41,7 +41,7 @@ const facilities = [
         title: "Kantin Sekolah",
         image: "/assets/fasilitas/computerlab.jpg",
         description:
-            "Kantin yang menyediakan makanan sehat dan terjangkau untuk siswa dan guru.",
+            "Kantin yang menyediakan makanan sehat dan terjangkau untuk siswa dan guru. asdadadadasd",
     },
 ];
 
