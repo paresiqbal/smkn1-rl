@@ -105,7 +105,7 @@ export default function MajorDetail() {
             <h1 className="mb-2 text-3xl font-bold">{major.name}</h1>
 
             {/* Tabs */}
-            <div className="mb-4 flex border-b border-gray-300">
+            <div className="mb-4 flex border-b">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
@@ -113,7 +113,7 @@ export default function MajorDetail() {
                         className={`px-4 py-2 text-xs font-medium ${
                             activeTab === tab.id
                                 ? "border-b-2 border-red-400 text-red-500"
-                                : "text-gray-900 hover:text-red-400"
+                                : "hover:text-red-400"
                         }`}
                     >
                         {tab.name}
@@ -131,13 +131,18 @@ export default function MajorDetail() {
 
                 {activeTab === 2 && (
                     <>
-                        <h2 className="mb-2 font-semibold">
-                            GPA Requirement: {major.requirements.gpa}
-                        </h2>
+                        <div className="mb-4">
+                            <p className="font-bold">Program Requirements</p>
+                            <h2>
+                                Students must maintain a minimum GPA of{" "}
+                                {major.requirements.gpa} and complete all
+                                required coursework to graduate.
+                            </h2>
+                        </div>
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
-                                <h3 className="font-medium">Prerequisites</h3>
-                                <ul className="list-inside list-disc text-gray-600">
+                                <h3 className="font-bold">Prerequisites</h3>
+                                <ul className="list-inside list-disc">
                                     {major.requirements.prerequisites.map(
                                         (item) => (
                                             <li key={item}>{item}</li>
@@ -146,24 +151,34 @@ export default function MajorDetail() {
                                 </ul>
                             </div>
                             <div>
-                                <h3 className="font-medium">Core Classes</h3>
-                                <ul className="list-inside list-disc text-gray-600">
+                                <h3 className="mb-2 font-bold">Core Classes</h3>
+                                <div className="flex flex-wrap gap-2">
                                     {major.requirements.coreClasses.map(
                                         (item) => (
-                                            <li key={item}>{item}</li>
+                                            <button
+                                                key={item}
+                                                className="dark:shadow-input-light shadow-input-dark border border-black bg-emerald-600 px-3 py-1 text-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none"
+                                            >
+                                                {item}
+                                            </button>
                                         ),
                                     )}
-                                </ul>
+                                </div>
                             </div>
                             <div className="md:col-span-2">
-                                <h3 className="font-medium">Electives</h3>
-                                <ul className="list-inside list-disc text-gray-600">
+                                <h3 className="mb-2 font-medium">Electives</h3>
+                                <div className="flex flex-wrap gap-2">
                                     {major.requirements.electives.map(
                                         (item) => (
-                                            <li key={item}>{item}</li>
+                                            <button
+                                                key={item}
+                                                className="dark:shadow-input-light shadow-input-dark border border-black bg-emerald-600 px-3 py-1 text-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none"
+                                            >
+                                                {item}
+                                            </button>
                                         ),
                                     )}
-                                </ul>
+                                </div>
                             </div>
                         </div>
                     </>
@@ -174,7 +189,7 @@ export default function MajorDetail() {
                         <h2 className="mb-2 font-semibold">
                             Career Opportunities
                         </h2>
-                        <ul className="list-inside list-disc text-gray-600">
+                        <ul className="list-inside list-disc">
                             {major.careerOpportunities.map((career) => (
                                 <li key={career}>{career}</li>
                             ))}
@@ -200,10 +215,10 @@ export default function MajorDetail() {
                                         <p className="font-semibold">
                                             {professor.name}
                                         </p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm">
                                             {professor.title}
                                         </p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm">
                                             {professor.specialization}
                                         </p>
                                     </div>
