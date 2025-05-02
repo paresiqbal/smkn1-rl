@@ -122,10 +122,10 @@ export default function MajorDetail() {
             </div>
 
             {/* Tab Content */}
-            <div className="shadow-dark dark:shadow-light border-2 border-black bg-white p-4 dark:border-white">
+            <div className="shadow-dark dark:shadow-light border-2 border-black bg-white p-4 dark:border-white dark:bg-zinc-900">
                 {activeTab === 1 && (
                     <>
-                        <p className="mb-2 text-gray-700">{major.overview}</p>
+                        <p className="mb-2">{major.overview}</p>
                     </>
                 )}
 
@@ -139,46 +139,41 @@ export default function MajorDetail() {
                                 required coursework to graduate.
                             </h2>
                         </div>
-                        <div className="grid gap-4 md:grid-cols-2">
-                            <div>
-                                <h3 className="font-bold">Prerequisites</h3>
-                                <ul className="list-inside list-disc">
-                                    {major.requirements.prerequisites.map(
-                                        (item) => (
-                                            <li key={item}>{item}</li>
-                                        ),
-                                    )}
-                                </ul>
+
+                        <div className="mb-4">
+                            <h3 className="font-bold">Prerequisites</h3>
+                            <ul className="list-inside list-disc">
+                                {major.requirements.prerequisites.map(
+                                    (item) => (
+                                        <li key={item}>{item}</li>
+                                    ),
+                                )}
+                            </ul>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="font-bold">Core Classes</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {major.requirements.coreClasses.map((item) => (
+                                    <button
+                                        key={item}
+                                        className="dark:shadow-input-light shadow-input-dark border border-black bg-emerald-600 px-3 py-1 text-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none"
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
                             </div>
-                            <div>
-                                <h3 className="mb-2 font-bold">Core Classes</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {major.requirements.coreClasses.map(
-                                        (item) => (
-                                            <button
-                                                key={item}
-                                                className="dark:shadow-input-light shadow-input-dark border border-black bg-emerald-600 px-3 py-1 text-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none"
-                                            >
-                                                {item}
-                                            </button>
-                                        ),
-                                    )}
-                                </div>
-                            </div>
-                            <div className="md:col-span-2">
-                                <h3 className="mb-2 font-medium">Electives</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {major.requirements.electives.map(
-                                        (item) => (
-                                            <button
-                                                key={item}
-                                                className="dark:shadow-input-light shadow-input-dark border border-black bg-emerald-600 px-3 py-1 text-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none"
-                                            >
-                                                {item}
-                                            </button>
-                                        ),
-                                    )}
-                                </div>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="font-bold">Electives</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {major.requirements.electives.map((item) => (
+                                    <button
+                                        key={item}
+                                        className="dark:shadow-input-light shadow-input-dark border border-black bg-red-400 px-3 py-1 text-black transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus:outline-none"
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
                             </div>
                         </div>
                     </>
