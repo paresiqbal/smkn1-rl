@@ -101,9 +101,8 @@ export default function MajorDetail() {
     const [activeTab, setActiveTab] = useState(tabs[0].id);
 
     return (
-        <div className="mx-auto max-w-4xl p-6">
+        <div className="mx-auto max-w-screen-md px-4 pt-8 pb-16 md:pt-16">
             <h1 className="mb-2 text-3xl font-bold">{major.name}</h1>
-            <p className="mb-4 text-gray-600">{major.description}</p>
 
             {/* Tabs */}
             <div className="mb-4 flex border-b border-gray-300">
@@ -111,10 +110,10 @@ export default function MajorDetail() {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`px-4 py-2 text-sm font-medium ${
+                        className={`px-4 py-2 text-xs font-medium ${
                             activeTab === tab.id
-                                ? "border-b-2 border-blue-500 text-blue-600"
-                                : "text-gray-500 hover:text-blue-500"
+                                ? "border-b-2 border-red-400 text-red-500"
+                                : "text-gray-900 hover:text-red-400"
                         }`}
                     >
                         {tab.name}
@@ -123,44 +122,10 @@ export default function MajorDetail() {
             </div>
 
             {/* Tab Content */}
-            <div className="rounded border border-gray-200 bg-white p-4">
+            <div className="shadow-dark dark:shadow-light border-2 border-black bg-white p-4 dark:border-white">
                 {activeTab === 1 && (
                     <>
                         <p className="mb-2 text-gray-700">{major.overview}</p>
-                        <ul className="space-y-1 text-sm text-gray-600">
-                            <li>
-                                <strong>Department:</strong> {major.department}
-                            </li>
-                            <li>
-                                <strong>Degree Type:</strong> {major.degreeType}
-                            </li>
-                            <li>
-                                <strong>Duration:</strong> {major.duration}
-                            </li>
-                            <li>
-                                <strong>Credits:</strong> {major.credits}
-                            </li>
-                            <li>
-                                <strong>Accreditation:</strong>{" "}
-                                {major.accreditation}
-                            </li>
-                            <li>
-                                <strong>Enrollment Rate:</strong>{" "}
-                                {major.statistics.enrollmentRate}%
-                            </li>
-                            <li>
-                                <strong>Graduation Rate:</strong>{" "}
-                                {major.statistics.graduationRate}%
-                            </li>
-                            <li>
-                                <strong>Employment Rate:</strong>{" "}
-                                {major.statistics.employmentRate}%
-                            </li>
-                            <li>
-                                <strong>Average Salary:</strong>{" "}
-                                {major.statistics.averageSalary}
-                            </li>
-                        </ul>
                     </>
                 )}
 
