@@ -15,4 +15,9 @@ class PublicMajorController extends Controller
     {
         return inertia('Public/Majors/tbsm');
     }
+
+    public function tkr()
+    {
+        return inertia('Public/Majors/tkr');
+    }
 }

@@ -88,3 +88,4 @@ Route::get('/article/agenda', [PublicAgendaController::class, 'index'])->name('a
 // majors
 Route::get('/majors/tkj', [PublicMajorController::class, 'tkj'])->name('majors.tkj');
 Route::get('/majors/tbsm', [PublicMajorController::class, 'tbsm'])->name('majors.tbsm');
+Route::get('/majors/tkr', [PublicMajorController::class, 'tkr'])->name('majors.tkr');

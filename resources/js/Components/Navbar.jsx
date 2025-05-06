@@ -58,7 +58,7 @@ const Navbar = () => {
             subItems: [
                 { label: "Komputer & Jaringan", path: "/majors/tkj" },
                 { label: "Bisnis Sepeda Motor", path: "/majors/tbsm" },
-                { label: "Kendaraan Ringan", path: "/profil/visi-misi" },
+                { label: "Kendaraan Ringan", path: "/majors/tkr" },
                 { label: "Elektronika", path: "/profil/visi-misi" },
                 { label: "Desain Pemodelan", path: "/profil/visi-misi" },
                 {
