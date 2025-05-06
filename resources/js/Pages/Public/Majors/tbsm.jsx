@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const major = {
-    id: "computer-science",
-    name: "Computer Science",
+    id: "teknik binis sepeda motor",
+    name: "Teknik Bisnis Sepeda Motor",
     department: "School of Engineering",
     degreeType: "Bachelor of Science",
     duration: "4 years",
@@ -97,7 +97,7 @@ const tabs = [
     { id: 4, name: "Faculty" },
 ];
 
-export default function Tkj() {
+export default function Tbsm() {
     const [activeTab, setActiveTab] = useState(tabs[0].id);
 
     return (

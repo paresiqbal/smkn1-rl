@@ -10,4 +10,9 @@ class PublicMajorController extends Controller
     {
         return inertia('Public/Majors/tkj');
     }
+
+    public function tbsm()
+    {
+        return inertia('Public/Majors/tbsm');
+    }
 }
