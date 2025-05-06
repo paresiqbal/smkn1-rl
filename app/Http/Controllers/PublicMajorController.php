@@ -25,4 +25,9 @@ class PublicMajorController extends Controller
     {
         return inertia('Public/Majors/tei');
     }
+
+    public function dpib()
+    {
+        return inertia('Public/Majors/dpib');
+    }
 }
