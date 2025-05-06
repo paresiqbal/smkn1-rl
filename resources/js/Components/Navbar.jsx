@@ -59,7 +59,7 @@ const Navbar = () => {
                 { label: "Komputer & Jaringan", path: "/majors/tkj" },
                 { label: "Bisnis Sepeda Motor", path: "/majors/tbsm" },
                 { label: "Kendaraan Ringan", path: "/majors/tkr" },
-                { label: "Elektronika", path: "/profil/visi-misi" },
+                { label: "Elektronika", path: "/majors/tei" },
                 { label: "Desain Pemodelan", path: "/profil/visi-misi" },
                 {
                     label: "Instalasi Tenaga Listrik",

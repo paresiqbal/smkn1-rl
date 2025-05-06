@@ -20,4 +20,9 @@ class PublicMajorController extends Controller
     {
         return inertia('Public/Majors/tkr');
     }
+
+    public function tei()
+    {
+        return inertia('Public/Majors/tei');
+    }
 }
