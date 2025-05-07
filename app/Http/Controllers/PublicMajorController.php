@@ -35,4 +35,9 @@ class PublicMajorController extends Controller
     {
         return inertia('Public/Majors/titl');
     }
+
+    public function las()
+    {
+        return inertia('Public/Majors/las');
+    }
 }
