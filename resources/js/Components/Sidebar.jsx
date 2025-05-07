@@ -9,6 +9,7 @@ import {
     LogOut,
     User,
     Newspaper,
+    BadgeHelp,
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -94,6 +95,16 @@ const Sidebar = () => {
                 { label: "Visi & Misi", path: "/profil/visi-misi" },
                 { label: "Sejarah", path: "/profil/visi-misi" },
                 { label: "Fasilitas", path: "/profil/visi-misi" },
+            ],
+        },
+        {
+            label: "Panduan",
+            icon: <BadgeHelp size="16" />,
+            subItems: [
+                { label: "Pendaftaran", path: "/panduan/pendaftaran" },
+                { label: "Kalender", path: "/panduan/kalender" },
+                { label: "FAQ", path: "/panduan/faq" },
+                { label: "Download", path: "/panduan/download" },
             ],
         },
     ];

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\CalendarImageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Admin\NewsController;
@@ -65,6 +66,9 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/majors/{major}/edit', [MajorController::class, 'edit'])->name('admin.majors.edit');
     Route::put('/admin/majors/{major}', [MajorController::class, 'update'])->name('admin.majors.update');
     Route::delete('/admin/majors/{major}', [MajorController::class, 'destroy'])->name('admin.majors.destroy');
+
+    // guide routes
+    Route::get('/panduan/kalender', [CalendarImageController::class, 'index'])->name('admin.guide.calendar');
 });
 
 Route::get('/news-preview', [PublicNewsController::class, 'index']);

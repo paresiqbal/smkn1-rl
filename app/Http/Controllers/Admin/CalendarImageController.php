@@ -13,7 +13,7 @@ class CalendarImageController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Admin/guide/Calendar');
     }
 
     /**
