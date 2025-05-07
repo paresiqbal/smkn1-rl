@@ -91,3 +91,4 @@ Route::get('/majors/tbsm', [PublicMajorController::class, 'tbsm'])->name('majors
 Route::get('/majors/tkr', [PublicMajorController::class, 'tkr'])->name('majors.tkr');
 Route::get('/majors/tei', [PublicMajorController::class, 'tei'])->name('majors.tei');
 Route::get('/majors/dpib', [PublicMajorController::class, 'dpib'])->name('majors.dpib');
+Route::get('/majors/titl', [PublicMajorController::class, 'titl'])->name('majors.titl');

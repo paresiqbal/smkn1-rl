@@ -30,4 +30,9 @@ class PublicMajorController extends Controller
     {
         return inertia('Public/Majors/dpib');
     }
+
+    public function titl()
+    {
+        return inertia('Public/Majors/titl');
+    }
 }

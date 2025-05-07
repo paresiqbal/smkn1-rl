@@ -63,7 +63,7 @@ const Navbar = () => {
                 { label: "Desain Pemodelan", path: "/majors/dpib" },
                 {
                     label: "Instalasi Tenaga Listrik",
-                    path: "/profil/visi-misi",
+                    path: "/majors/titl",
                 },
                 { label: "Pengelasan", path: "/profil/visi-misi" },
             ],
