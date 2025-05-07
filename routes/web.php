@@ -68,7 +68,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::delete('/admin/majors/{major}', [MajorController::class, 'destroy'])->name('admin.majors.destroy');
 
     // guide routes
-    Route::get('/panduan/kalender', [CalendarImageController::class, 'index'])->name('admin.guide.calendar');
+    Route::get('/admin/guide/calendar', [CalendarImageController::class, 'index'])->name('admin.guide.calendar');
 });
 
 Route::get('/news-preview', [PublicNewsController::class, 'index']);

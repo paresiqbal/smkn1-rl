@@ -102,7 +102,7 @@ const Sidebar = () => {
             icon: <BadgeHelp size="16" />,
             subItems: [
                 { label: "Pendaftaran", path: "/panduan/pendaftaran" },
-                { label: "Kalender", path: "/panduan/kalender" },
+                { label: "Kalender", path: "/admin/guide/calendar" },
                 { label: "FAQ", path: "/panduan/faq" },
                 { label: "Download", path: "/panduan/download" },
             ],
