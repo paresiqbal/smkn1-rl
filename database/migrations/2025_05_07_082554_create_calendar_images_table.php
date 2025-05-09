@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('calendar_images', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->integer('year');
             $table->string('image');
             $table->timestamps();
         });

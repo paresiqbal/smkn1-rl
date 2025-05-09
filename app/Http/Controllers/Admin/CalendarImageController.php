@@ -30,21 +30,20 @@ class CalendarImageController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'month' => 'required|date',
+            'year' => 'required|integer|min:1900|max:2100',
             'image' => 'required|image|max:2048',
         ]);
 
         $path = $request->file('image')->store('calendar_images', 'public');
 
         CalendarImage::create([
-            'title' => $validated['title'],
-            'month' => $validated['month'],
-            'image_path' => $path,
+            'year' => $validated['year'],
+            'image' => $path,
         ]);
 
         return redirect()->back()->with('success', 'Calendar image uploaded.');
     }
+
 
     /**
      * Display the specified resource.
