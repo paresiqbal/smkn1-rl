@@ -7,7 +7,6 @@ import NotyfContext from "@/context/NotyfContext";
 // Layout & Components
 import AdminLayout from "@/layouts/AdminLayout";
 import Breadcrumb from "@/components/Breadcrumb";
-import ShowCalendar from "./ShowCalendar";
 
 export default function CreateCalendar() {
     const notyf = useContext(NotyfContext);
@@ -127,9 +126,6 @@ export default function CreateCalendar() {
                     {submitting ? "Mengunggah..." : "Upload"}
                 </button>
             </form>
-            <div>
-                <ShowCalendar />
-            </div>
         </div>
     );
 }
