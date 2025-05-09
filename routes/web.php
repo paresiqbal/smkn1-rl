@@ -70,6 +70,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     // guide routes
     Route::get('/admin/guide/calendar', [CalendarImageController::class, 'index'])->name('admin.guide.calendar');
     Route::post('/admin/guide/calendar', [CalendarImageController::class, 'store'])->name('admin.guide.calendar.store');
+    Route::get('/admin/guide/calendar/{id}', [CalendarImageController::class, 'show'])->name('admin.guide.calendar.show');
 });
 
 Route::get('/news-preview', [PublicNewsController::class, 'index']);

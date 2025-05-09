@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CalendarImage;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CalendarImageController extends Controller
 {
@@ -13,7 +14,7 @@ class CalendarImageController extends Controller
      */
     public function index()
     {
-        return inertia('Admin/guide/Calendar');
+        return inertia('Admin/guide/calendar/Calendar');
     }
 
     /**
@@ -30,27 +31,19 @@ class CalendarImageController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'year' => 'required|numeric|min:1900|max:2100',
+            'year' => 'required|integer|min:1900|max:2100',
             'image' => 'required|image|max:2048',
         ]);
 
-        // Save the image
         $path = $request->file('image')->store('calendar_images', 'public');
 
-        // Create a new CalendarImage record
-        $calendarImage = CalendarImage::create([
+        CalendarImage::create([
             'year' => $validated['year'],
             'image' => $path,
         ]);
 
-        // Return the image path and other details as a response
-        return response()->json([
-            'message' => 'Calendar image uploaded successfully.',
-            'imageUrl' => asset('storage/' . $calendarImage->image),
-            'year' => $calendarImage->year,
-        ]);
+        return redirect()->back()->with('success', 'Calendar image uploaded.');
     }
-
 
 
     /**
