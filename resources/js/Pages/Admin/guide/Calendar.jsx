@@ -132,6 +132,7 @@ export default function Calendar() {
                             key={item.id}
                             className="rounded border bg-gray-100 p-4 dark:bg-gray-800"
                         >
+                            <button>x</button>
                             <p className="font-semibold">Tahun: {item.year}</p>
                             {item.image && (
                                 <img
