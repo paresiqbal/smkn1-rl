@@ -1,17 +1,18 @@
 import React, { useState, useContext } from "react";
-import { router } from "@inertiajs/react";
-
-// Context
-import NotyfContext from "@/context/NotyfContext";
+import { router, usePage } from "@inertiajs/react";
 
 // Layout & Components
 import AdminLayout from "@/layouts/AdminLayout";
 import Breadcrumb from "@/components/Breadcrumb";
 
-export default function CreateCalendar() {
-    const notyf = useContext(NotyfContext);
+// Context
+import NotyfContext from "@/context/NotyfContext";
 
-    const [calendar, setCalendar] = useState({
+export default function Calendar() {
+    const notyf = useContext(NotyfContext);
+    const { calendar } = usePage().props;
+
+    const [form, setForm] = useState({
         year: "",
         image: null,
     });
@@ -20,12 +21,11 @@ export default function CreateCalendar() {
     const breadcrumbItems = [
         { label: "Home", href: "/admin/dashboard" },
         { label: "Kalender", href: "/admin/guide/calendar" },
-        { label: "Upload Kalender", href: "/admin/guide/calendar/create" },
     ];
 
     const handleChange = (e) => {
         const { name, type, value, files } = e.target;
-        setCalendar((prev) => ({
+        setForm((prev) => ({
             ...prev,
             [name]: type === "file" ? files[0] : value,
         }));
@@ -35,58 +35,56 @@ export default function CreateCalendar() {
         e.preventDefault();
         if (submitting) return;
 
-        if (!calendar.year || !calendar.image) {
+        if (!form.year || !form.image) {
             notyf.error("Tahun dan gambar wajib diisi.");
             return;
         }
 
         const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-        if (!allowedTypes.includes(calendar.image.type)) {
+        if (!allowedTypes.includes(form.image.type)) {
             notyf.error("Format gambar harus JPG, PNG, atau WEBP.");
             return;
         }
 
-        const maxSize = 2 * 1024 * 1024;
-        if (calendar.image.size > maxSize) {
+        if (form.image.size > 2 * 1024 * 1024) {
             notyf.error("Ukuran gambar maksimal 2MB.");
             return;
         }
 
         const formData = new FormData();
-        formData.append("year", calendar.year);
-        formData.append("image", calendar.image);
+        formData.append("year", form.year);
+        formData.append("image", form.image);
 
         setSubmitting(true);
 
         router.post("/admin/guide/calendar", formData, {
             onSuccess: () => {
                 notyf.success("Kalender berhasil diunggah!");
-                setCalendar({ year: "", image: null });
+                setForm({ year: "", image: null });
             },
             onError: () => notyf.error("Gagal mengunggah kalender."),
             onFinish: () => setSubmitting(false),
+            preserveScroll: true,
         });
     };
 
     return (
-        <div className="px-6 pt-14 pb-10 md:pt-0">
+        <div className="max-w-3xl px-6 pt-14 md:pt-0">
             <Breadcrumb items={breadcrumbItems} />
-            <h1 className="pb-6 text-2xl font-bold">
-                Upload Kalender Akademik
-            </h1>
+            <h1 className="pb-6 text-2xl font-bold">Manajemen Kalender</h1>
 
+            {/* Form */}
             <form
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
-                className="space-y-4"
+                className="mb-6 space-y-4"
             >
-                {/* Tahun */}
                 <div>
                     <label className="block font-medium">Tahun</label>
                     <input
                         type="number"
                         name="year"
-                        value={calendar.year}
+                        value={form.year}
                         onChange={handleChange}
                         min="1900"
                         max="2100"
@@ -95,12 +93,11 @@ export default function CreateCalendar() {
                     />
                 </div>
 
-                {/* Gambar */}
                 <div>
                     <label className="block font-medium">Gambar Kalender</label>
-                    {calendar.image && (
+                    {form.image && (
                         <img
-                            src={URL.createObjectURL(calendar.image)}
+                            src={URL.createObjectURL(form.image)}
                             alt="Preview"
                             className="mt-2 max-w-xs rounded"
                         />
@@ -126,8 +123,31 @@ export default function CreateCalendar() {
                     {submitting ? "Mengunggah..." : "Upload"}
                 </button>
             </form>
+
+            {/* Calendar List */}
+            <div className="grid gap-6 md:grid-cols-2">
+                {calendar.length > 0 ? (
+                    calendar.map((item) => (
+                        <div
+                            key={item.id}
+                            className="rounded border bg-gray-100 p-4 dark:bg-gray-800"
+                        >
+                            <p className="font-semibold">Tahun: {item.year}</p>
+                            {item.image && (
+                                <img
+                                    src={item.image}
+                                    alt={`Kalender ${item.year}`}
+                                    className="mt-2 max-w-full rounded"
+                                />
+                            )}
+                        </div>
+                    ))
+                ) : (
+                    <p>Tidak ada kalender.</p>
+                )}
+            </div>
         </div>
     );
 }
 
-CreateCalendar.layout = (page) => <AdminLayout children={page} />;
+Calendar.layout = (page) => <AdminLayout children={page} />;
